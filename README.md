@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⌘ Prompt-Lab
 
-## Getting Started
+**A visual prompt composer for AI coding agents.**
 
-First, run the development server:
+Stop retyping your tech stack every time you open a new AI chat. Prompt-Lab lets you build structured, optimized prompts by picking your stack visually — then hands you a clean prompt ready to paste into Claude, GPT, Gemini, or any AI coding agent.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Why Prompt-Lab exists
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Every time you start a new session with an AI coding assistant, you end up typing out the same context: your framework, your database, your animation library, your project type, your role for the AI to play. That's tokens spent explaining setup instead of building — and it happens over and over, every single chat.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Prompt-Lab fixes this. Select pills for your stack — **Language/Framework**, **Backend**, **Database**, **Animation Library**, **Project Type**, **Role**, **Extras** — and Prompt-Lab assembles a structured prompt for you, organized into clear sections (Role → Project Type → Tech Stack → Animations → Additional Requirements). No wasted tokens, no inconsistent phrasing, no forgetting a detail halfway through describing your stack.
 
-## Learn More
+## How it works
 
-To learn more about Next.js, take a look at the following resources:
+1. **Pick your stack** — click through tech pills across categories (framework, backend, database, animation library, etc.)
+2. **Choose your project type and role** — tell the AI what it's building and what persona to take
+3. **Generate** — Prompt-Lab compiles everything into a clean, structured prompt with markdown section headers
+4. **Copy and paste** — drop it straight into your AI coding agent of choice
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Frontend:** Next.js 14, TypeScript, Tailwind CSS v4
+- **Backend/Data:** Supabase
+- **Hosting:** AWS EC2
 
-## Deploy on Vercel
+## Status
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Actively in development — templates gallery, scroll-animated landing sections, and pill-based prompt builder are being built out.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+Built by [@umang4zq](https://github.com/umang4zq)
