@@ -154,8 +154,6 @@ function BuildPageContent() {
     }
   };
 
-  const hasSelections = Object.values(selections).some(arr => arr.length > 0);
-
   if (catsLoading || pillsLoading) {
     return (
       <div className="h-screen w-full dark:bg-black bg-white dark:text-white text-black flex flex-col pt-20 px-12">
@@ -226,7 +224,6 @@ function BuildPageContent() {
               onEditedPromptChange={setEditedPrompt}
               onReset={() => setEditedPrompt(null)}
               onSave={handleSave}
-              hasSelections={hasSelections}
             />
           </div>
           

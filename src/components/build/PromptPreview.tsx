@@ -13,7 +13,6 @@ interface PromptPreviewProps {
   onEditedPromptChange: (val: string) => void;
   onReset: () => void;
   onSave: (isPublic: boolean) => Promise<void>;
-  hasSelections: boolean;
 }
 
 export default function PromptPreview({
@@ -23,8 +22,7 @@ export default function PromptPreview({
   editedPrompt,
   onEditedPromptChange,
   onReset,
-  onSave,
-  hasSelections
+  onSave
 }: PromptPreviewProps) {
   const [isSaving, setIsSaving] = useState(false);
   const displayPrompt = editedPrompt !== null ? editedPrompt : generatedPrompt;
@@ -57,6 +55,8 @@ export default function PromptPreview({
     setIsSaving(true);
     try {
       await onSave(isPublic);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to save prompt");
     } finally {
       setIsSaving(false);
     }
@@ -114,18 +114,18 @@ export default function PromptPreview({
         <div className="flex gap-2">
           <button
             onClick={() => handleSave(false)}
-            disabled={!hasSelections || isSaving}
+            disabled={!displayPrompt.trim() || isSaving}
             className="flex-1 flex items-center justify-center gap-2 liquid-glass dark:text-white text-black text-sm font-medium py-2.5 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-            title={!hasSelections ? BUILD_CONTENT.tooltipDisabled : ""}
+            title={!displayPrompt.trim() ? "Prompt cannot be empty" : ""}
           >
             <Save size={16} />
             {BUILD_CONTENT.saveDraftBtn}
           </button>
           <button
             onClick={() => handleSave(true)}
-            disabled={!hasSelections || isSaving}
+            disabled={!displayPrompt.trim() || isSaving}
             className="flex-1 flex items-center justify-center gap-2 liquid-glass dark:text-white text-black text-sm font-medium py-2.5 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all dark:hover:bg-white/5 hover:bg-black/5"
-            title={!hasSelections ? BUILD_CONTENT.tooltipDisabled : ""}
+            title={!displayPrompt.trim() ? "Prompt cannot be empty" : ""}
           >
             <Send size={16} />
             {BUILD_CONTENT.publishBtn}
