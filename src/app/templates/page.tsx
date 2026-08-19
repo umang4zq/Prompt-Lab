@@ -6,7 +6,22 @@ import Navbar from "@/components/hero/Navbar"; // Assume we can use the existing
 import PrmptArchive from "@/components/templates/PrmptArchive";
 import Marketeam from "@/components/templates/Marketeam";
 import ViktorStudio from "@/components/templates/ViktorStudio";
+import OrbitSecureSystem from "@/components/templates/OrbitSecureSystem";
 import Placeholder from "@/components/templates/Placeholder";
+import CopyButton from "@/components/CopyButton";
+import Vantage from "@/components/templates/Vantage";
+import SecurityLayer from "@/components/templates/SecurityLayer";
+import SPD from "@/components/templates/SPD";
+import JWTBankCarousel from "@/components/templates/JWTBankCarousel";
+import promptsExtra from "@/data/prompts-extra.json";
+import { 
+  promptOrbitSecureSystem,
+  promptPrmptArchive,
+  promptMarketeam,
+  promptViktorStudio,
+  promptApogee
+} from "@/data/prompts";
+import Apogee from "@/components/templates/Apogee";
 
 const TEMPLATES = [
   {
@@ -14,24 +29,69 @@ const TEMPLATES = [
     title: "Prmpt Archive",
     category: "Scroll Landing",
     Component: PrmptArchive,
+    prompt: promptPrmptArchive,
   },
   {
     id: "marketeam",
     title: "Marketeam",
     category: "Landing Page",
     Component: Marketeam,
+    prompt: promptMarketeam,
   },
   {
     id: "viktor-studio",
     title: "Viktor Studio",
     category: "Portfolio Hero",
     Component: ViktorStudio,
+    prompt: promptViktorStudio,
+  },
+  {
+    id: "orbit-secure-system",
+    title: "Orbit Secure System",
+    category: "Secure System",
+    Component: OrbitSecureSystem,
+    prompt: promptOrbitSecureSystem,
   },
   {
     id: "placeholder",
     title: "Upcoming Template",
     category: "TBD",
     Component: Placeholder,
+  },
+  {
+    id: "apogee",
+    title: "Apogee",
+    category: "Hero Section",
+    Component: Apogee,
+    prompt: promptApogee,
+  },
+  {
+    id: "vantage",
+    title: "Vantage",
+    category: "Landing Page",
+    Component: Vantage,
+    prompt: promptsExtra.vantage,
+  },
+  {
+    id: "security-layer",
+    title: "Security Layer",
+    category: "Cybersecurity",
+    Component: SecurityLayer,
+    prompt: promptsExtra.securityLayer,
+  },
+  {
+    id: "spd",
+    title: "S.P.D",
+    category: "Hero Section",
+    Component: SPD,
+    prompt: promptsExtra.spd,
+  },
+  {
+    id: "jwt-bank-carousel",
+    title: "JWT Bank Carousel",
+    category: "3D Carousel",
+    Component: JWTBankCarousel,
+    prompt: promptsExtra.jwtBankCarousel,
   },
 ];
 
@@ -72,10 +132,7 @@ export default function TemplatesGallery() {
                 >
                   
                   {/* Badge */}
-                  <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-[#141414]/85 backdrop-blur-md border border-white/10 rounded-full px-3 py-1.5 text-xs text-white font-medium">
-                    <Copy size={12} />
-                    Copy
-                  </div>
+                  {tpl.prompt && <CopyButton textToCopy={tpl.prompt} />}
 
                   {/* Thumbnail render */}
                   <div className="absolute inset-0 pointer-events-none select-none origin-top-left" aria-hidden="true" style={{ width: '100vw', height: '100vh', transform: 'scale(calc(100cqw / 100vw))' }}>
