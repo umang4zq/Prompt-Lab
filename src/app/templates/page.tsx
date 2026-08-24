@@ -13,6 +13,7 @@ import Vantage from "@/components/templates/Vantage";
 import SecurityLayer from "@/components/templates/SecurityLayer";
 import SPD from "@/components/templates/SPD";
 import JWTBankCarousel from "@/components/templates/JWTBankCarousel";
+import Vectrus from "@/components/templates/Vectrus";
 import promptsExtra from "@/data/prompts-extra.json";
 import { 
   promptOrbitSecureSystem,
@@ -93,6 +94,13 @@ const TEMPLATES = [
     Component: JWTBankCarousel,
     prompt: promptsExtra.jwtBankCarousel,
   },
+  {
+    id: "vectrus",
+    title: "Vectrus Energy",
+    category: "Scroll Video",
+    Component: Vectrus,
+    prompt: promptsExtra.vectrus,
+  },
 ];
 
 export default function TemplatesGallery() {
@@ -135,7 +143,7 @@ export default function TemplatesGallery() {
                   {tpl.prompt && <CopyButton textToCopy={tpl.prompt} />}
 
                   {/* Thumbnail render */}
-                  <div className="absolute inset-0 pointer-events-none select-none origin-top-left" aria-hidden="true" style={{ width: '100vw', height: '100vh', transform: 'scale(calc(100cqw / 100vw))' }}>
+                  <div className="absolute inset-0 pointer-events-none select-none origin-top-left" aria-hidden="true" style={{ width: '1920px', height: '1224px', transform: 'scale(calc(100cqw / 1920px))' }}>
                     <tpl.Component isPreview={true} />
                   </div>
                 </div>
