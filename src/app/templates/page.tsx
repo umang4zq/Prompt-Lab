@@ -109,7 +109,7 @@ export default function TemplatesGallery() {
   const openTemplate = TEMPLATES.find((t) => t.id === openTemplateId);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen dark:bg-[#0a0a0a] bg-gray-50 dark:text-white text-gray-900 transition-colors duration-200">
       <Navbar />
 
       <main className="pb-24 pt-4">
@@ -119,10 +119,10 @@ export default function TemplatesGallery() {
             {/* Pricing removed */}
           </div>
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-1 bg-[#1a1a1a] border border-[#2a2a2a] text-[#d4d4d4] rounded-full px-[14px] py-[8px] text-[13px] hover:bg-[#212121] transition-colors">
+            <button className="flex items-center gap-1 dark:bg-[#1a1a1a] bg-white dark:border-[#2a2a2a] border-gray-200 dark:text-[#d4d4d4] text-gray-700 rounded-full px-[14px] py-[8px] text-[13px] dark:hover:bg-[#212121] hover:bg-gray-100 transition-colors shadow-sm">
               Type <ChevronDown size={14} />
             </button>
-            <button className="flex items-center gap-1 bg-[#1a1a1a] border border-[#2a2a2a] text-[#d4d4d4] rounded-full px-[14px] py-[8px] text-[13px] hover:bg-[#212121] transition-colors">
+            <button className="flex items-center gap-1 dark:bg-[#1a1a1a] bg-white dark:border-[#2a2a2a] border-gray-200 dark:text-[#d4d4d4] text-gray-700 rounded-full px-[14px] py-[8px] text-[13px] dark:hover:bg-[#212121] hover:bg-gray-100 transition-colors shadow-sm">
               Mixed <ChevronDown size={14} />
             </button>
           </div>
@@ -135,7 +135,7 @@ export default function TemplatesGallery() {
               <div key={tpl.id} className="flex flex-col gap-3 group cursor-pointer" onClick={() => setOpenTemplateId(tpl.id)}>
                 {/* Card Container */}
                 <div 
-                  className="bg-[#141414] border border-[#232323] rounded-[16px] overflow-hidden transition-all duration-300 group-hover:border-[#3a3a3a] group-hover:-translate-y-[2px] relative aspect-[16/10.2]"
+                  className="dark:bg-[#141414] bg-white dark:border-[#232323] border-gray-200 rounded-[16px] overflow-hidden transition-all duration-300 dark:group-hover:border-[#3a3a3a] group-hover:border-gray-300 shadow-sm group-hover:-translate-y-[2px] relative aspect-[16/10.2]"
                   style={{ containerType: 'inline-size' }}
                 >
                   
@@ -150,8 +150,8 @@ export default function TemplatesGallery() {
 
                 {/* Meta Row */}
                 <div className="flex justify-between items-center px-1">
-                  <h3 className="text-[15px] font-semibold text-[#f5f5f5]">{tpl.title}</h3>
-                  <span className="text-[13px] text-[#8a8a8a]">{tpl.category}</span>
+                  <h3 className="text-[15px] font-semibold dark:text-[#f5f5f5] text-gray-900">{tpl.title}</h3>
+                  <span className="text-[13px] dark:text-[#8a8a8a] text-gray-500">{tpl.category}</span>
                 </div>
               </div>
             ))}

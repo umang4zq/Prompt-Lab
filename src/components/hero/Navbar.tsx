@@ -7,20 +7,13 @@ import { HERO_CONTENT } from "../../lib/constants/heroContent";
 import { supabase } from "../../lib/supabase/client";
 import { Session } from "@supabase/supabase-js";
 import Link from "next/link";
+import { useTheme } from "../../lib/theme/ThemeContext";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDarkMode]);
+  const { isDarkMode, toggleTheme } = useTheme();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -86,7 +79,7 @@ export default function Navbar() {
           {/* User Profile Button */}
           <div className="relative animate-blur-fade-up opacity-0 hidden sm:block" style={{ animationDelay: "350ms" }}>
             <button 
-              onClick={() => setIsDarkMode(!isDarkMode)}
+              onClick={toggleTheme}
               className="flex items-center justify-center w-10 h-10 rounded-full liquid-glass transition-colors dark:hover:bg-white/5 hover:bg-black/5 dark:text-white text-black"
             >
               {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
@@ -159,7 +152,7 @@ export default function Navbar() {
 
             <div className="flex gap-2">
               <button 
-                onClick={() => setIsDarkMode(!isDarkMode)}
+                onClick={toggleTheme}
                 className="flex items-center justify-center w-10 h-10 rounded-full liquid-glass transition-colors dark:hover:bg-white/5 hover:bg-black/5 dark:text-white text-black"
               >
                 {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}

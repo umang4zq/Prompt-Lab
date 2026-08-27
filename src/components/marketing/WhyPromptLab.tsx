@@ -36,12 +36,12 @@ export default function WhyPromptLab() {
   };
 
   return (
-    <section className="relative w-full bg-[#0a0a0a] text-white py-24 md:py-40 overflow-hidden">
+    <section className="relative w-full dark:bg-[#0a0a0a] bg-neutral-100 dark:text-white text-neutral-900 py-24 md:py-40 overflow-hidden transition-colors duration-200">
       <div className="max-w-6xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="mb-24 md:mb-32 text-center">
-          <h2 className="text-sm font-semibold tracking-widest text-neutral-400 uppercase mb-4">Why Prompt-Lab</h2>
-          <p className="text-4xl md:text-6xl font-bold tracking-tight">Stop explaining. Start building.</p>
+          <h2 className="text-sm font-semibold tracking-widest dark:text-neutral-400 text-neutral-500 uppercase mb-4">Why Prompt-Lab</h2>
+          <p className="text-4xl md:text-6xl font-bold tracking-tight dark:text-white text-neutral-900">Stop explaining. Start building.</p>
         </div>
 
         <div className="space-y-32 md:space-y-48">
@@ -55,19 +55,19 @@ export default function WhyPromptLab() {
             className="flex flex-col md:flex-row items-center gap-12 md:gap-24"
           >
             <div className="flex-1 space-y-6">
-              <motion.h3 variants={textVariants} className="text-3xl md:text-5xl font-bold tracking-tight text-neutral-100">
-                The context tax is <span className="text-red-400">too high.</span>
+              <motion.h3 variants={textVariants} className="text-3xl md:text-5xl font-bold tracking-tight dark:text-neutral-100 text-neutral-900">
+                The context tax is <span className="text-red-500 dark:text-red-400">too high.</span>
               </motion.h3>
-              <motion.p variants={textVariants} className="text-lg md:text-xl text-neutral-400 leading-relaxed">
+              <motion.p variants={textVariants} className="text-lg md:text-xl dark:text-neutral-400 text-neutral-600 leading-relaxed">
                 AI coding models burn a massive number of tokens when you have to manually explain your tech stack, framework choices, folder structure, and conventions every single time you start a prompt.
               </motion.p>
             </div>
             <div className="flex-1 flex justify-center w-full">
-              <motion.div variants={visualVariants} className="relative w-full max-w-sm aspect-video bg-neutral-900 border border-neutral-800 rounded-2xl p-6 flex flex-col justify-center gap-4 shadow-2xl">
-                <div className="h-4 w-3/4 bg-neutral-800 rounded animate-pulse"></div>
-                <div className="h-4 w-full bg-neutral-800 rounded animate-pulse delay-75"></div>
-                <div className="h-4 w-5/6 bg-neutral-800 rounded animate-pulse delay-150"></div>
-                <div className="h-4 w-1/2 bg-red-900/30 rounded mt-2"></div>
+              <motion.div variants={visualVariants} className="relative w-full max-w-sm aspect-video dark:bg-neutral-900 bg-white border dark:border-neutral-800 border-neutral-200 rounded-2xl p-6 flex flex-col justify-center gap-4 shadow-xl">
+                <div className="h-4 w-3/4 dark:bg-neutral-800 bg-neutral-200 rounded animate-pulse"></div>
+                <div className="h-4 w-full dark:bg-neutral-800 bg-neutral-200 rounded animate-pulse delay-75"></div>
+                <div className="h-4 w-5/6 dark:bg-neutral-800 bg-neutral-200 rounded animate-pulse delay-150"></div>
+                <div className="h-4 w-1/2 dark:bg-red-900/30 bg-red-100 text-red-600 rounded mt-2"></div>
               </motion.div>
             </div>
           </motion.div>
@@ -81,20 +81,20 @@ export default function WhyPromptLab() {
             className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-24"
           >
             <div className="flex-1 space-y-6">
-              <motion.h3 variants={textVariants} className="text-3xl md:text-5xl font-bold tracking-tight text-neutral-100">
-                Wasted tokens = <br/><span className="text-orange-400">worse output.</span>
+              <motion.h3 variants={textVariants} className="text-3xl md:text-5xl font-bold tracking-tight dark:text-neutral-100 text-neutral-900">
+                Wasted tokens = <br/><span className="text-orange-500 dark:text-orange-400">worse output.</span>
               </motion.h3>
-              <motion.p variants={textVariants} className="text-lg md:text-xl text-neutral-400 leading-relaxed">
+              <motion.p variants={textVariants} className="text-lg md:text-xl dark:text-neutral-400 text-neutral-600 leading-relaxed">
                 Every wasted token eats into your context window. That means less room for actual logic, poorer memory of previous steps, and repeated hallucinations across every new chat session.
               </motion.p>
             </div>
             <div className="flex-1 flex justify-center w-full">
               <motion.div variants={visualVariants} className="flex gap-6 flex-wrap justify-center items-center">
-                 <div className="w-28 h-28 rounded-full border-4 border-orange-500/20 flex items-center justify-center bg-orange-500/5 shadow-[0_0_30px_-5px_rgba(249,115,22,0.2)]">
-                    <span className="text-orange-400 font-bold text-2xl">-40%</span>
+                 <div className="w-28 h-28 rounded-full border-4 border-orange-500/30 flex items-center justify-center bg-orange-500/10 shadow-[0_0_30px_-5px_rgba(249,115,22,0.2)]">
+                    <span className="text-orange-500 dark:text-orange-400 font-bold text-2xl">-40%</span>
                  </div>
-                 <div className="w-24 h-24 rounded-full border-2 border-neutral-800 flex items-center justify-center bg-neutral-900/50">
-                    <span className="text-neutral-500 font-medium text-sm text-center leading-tight">Context<br/>Limit</span>
+                 <div className="w-24 h-24 rounded-full border-2 dark:border-neutral-800 border-neutral-300 flex items-center justify-center dark:bg-neutral-900/50 bg-neutral-200/50">
+                    <span className="dark:text-neutral-400 text-neutral-600 font-medium text-sm text-center leading-tight">Context<br/>Limit</span>
                  </div>
               </motion.div>
             </div>
@@ -109,19 +109,19 @@ export default function WhyPromptLab() {
             className="flex flex-col md:flex-row items-center gap-12 md:gap-24"
           >
             <div className="flex-1 space-y-6">
-              <motion.h3 variants={textVariants} className="text-3xl md:text-5xl font-bold tracking-tight text-neutral-100">
-                Pick visually. <br/><span className="text-green-400">Generate instantly.</span>
+              <motion.h3 variants={textVariants} className="text-3xl md:text-5xl font-bold tracking-tight dark:text-neutral-100 text-neutral-900">
+                Pick visually. <br/><span className="text-emerald-500 dark:text-green-400">Generate instantly.</span>
               </motion.h3>
-              <motion.p variants={textVariants} className="text-lg md:text-xl text-neutral-400 leading-relaxed">
+              <motion.p variants={textVariants} className="text-lg md:text-xl dark:text-neutral-400 text-neutral-600 leading-relaxed">
                 Instead of typing paragraphs of context, use our pill-based selector. Pick your framework, database, and styling tools in seconds. Prompt-Lab assembles a structured, perfectly optimized prompt for you.
               </motion.p>
             </div>
             <div className="flex-1 flex justify-center w-full">
               <div className="flex flex-wrap gap-4 justify-center max-w-sm">
-                <motion.div variants={visualVariants} className="px-6 py-3 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-medium shadow-lg">Next.js</motion.div>
-                <motion.div variants={visualVariants} className="px-6 py-3 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 font-medium shadow-lg">Tailwind CSS</motion.div>
-                <motion.div variants={visualVariants} className="px-6 py-3 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 font-medium shadow-lg">Supabase</motion.div>
-                <motion.div variants={visualVariants} className="px-6 py-3 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 font-medium shadow-lg">Framer Motion</motion.div>
+                <motion.div variants={visualVariants} className="px-6 py-3 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-600 dark:text-blue-400 font-medium shadow-md">Next.js</motion.div>
+                <motion.div variants={visualVariants} className="px-6 py-3 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-600 dark:text-teal-400 font-medium shadow-md">Tailwind CSS</motion.div>
+                <motion.div variants={visualVariants} className="px-6 py-3 rounded-full bg-green-500/10 border border-green-500/30 text-green-600 dark:text-green-400 font-medium shadow-md">Supabase</motion.div>
+                <motion.div variants={visualVariants} className="px-6 py-3 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-600 dark:text-purple-400 font-medium shadow-md">Framer Motion</motion.div>
               </div>
             </div>
           </motion.div>
@@ -135,15 +135,15 @@ export default function WhyPromptLab() {
             className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-24"
           >
             <div className="flex-1 space-y-6">
-              <motion.h3 variants={textVariants} className="text-3xl md:text-5xl font-bold tracking-tight text-neutral-100">
-                More building. <br/><span className="text-blue-400">Zero repetition.</span>
+              <motion.h3 variants={textVariants} className="text-3xl md:text-5xl font-bold tracking-tight dark:text-neutral-100 text-neutral-900">
+                More building. <br/><span className="text-blue-500 dark:text-blue-400">Zero repetition.</span>
               </motion.h3>
-              <motion.p variants={textVariants} className="text-lg md:text-xl text-neutral-400 leading-relaxed">
+              <motion.p variants={textVariants} className="text-lg md:text-xl dark:text-neutral-400 text-neutral-600 leading-relaxed">
                 Get cleaner prompts, drastically more consistent AI outputs, and never rewrite the same stack context again. Keep your context window entirely focused on solving the hard problems.
               </motion.p>
             </div>
             <div className="flex-1 flex justify-center w-full">
-              <motion.div variants={visualVariants} className="relative w-full max-w-sm bg-[#0d1117] border border-neutral-800 rounded-2xl p-6 shadow-[0_0_50px_-12px_rgba(59,130,246,0.25)]">
+              <motion.div variants={visualVariants} className="relative w-full max-w-sm bg-[#0d1117] text-white border border-neutral-800 rounded-2xl p-6 shadow-[0_0_50px_-12px_rgba(59,130,246,0.25)]">
                 <div className="flex items-center gap-2 mb-6 border-b border-neutral-800 pb-4">
                   <div className="w-3 h-3 rounded-full bg-neutral-700"></div>
                   <div className="w-3 h-3 rounded-full bg-neutral-700"></div>

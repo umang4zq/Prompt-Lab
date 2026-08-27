@@ -19,15 +19,19 @@ export const metadata: Metadata = {
   description: "A cinematic movie/streaming hero section.",
 };
 
+import { ThemeProvider } from "../lib/theme/ThemeContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-black text-white`}>
-        {children}
+    <html lang="en" className="dark">
+      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased dark:bg-black bg-white dark:text-white text-black min-h-screen transition-colors duration-200`}>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

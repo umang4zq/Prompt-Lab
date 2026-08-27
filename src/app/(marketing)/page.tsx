@@ -5,14 +5,16 @@ import { Menu, X, Sun, Moon } from "lucide-react";
 import Link from "next/link";
 import SwipeToBuild from "../../components/hero/SwipeToBuild";
 import WhyPromptLab from "../../components/marketing/WhyPromptLab";
+import { useTheme } from "../../lib/theme/ThemeContext";
 
 export default function CinematicHero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const { isDarkMode, toggleTheme } = useTheme();
 
   const navLinks = [
     { name: "Build", href: "/build" },
     { name: "Templates", href: "/templates" },
+    { name: "Gallery", href: "/gallery" },
   ];
 
   return (
@@ -68,7 +70,7 @@ export default function CinematicHero() {
           <div className="flex items-center gap-3">
 
             <button 
-              onClick={() => setIsDarkMode(!isDarkMode)}
+              onClick={toggleTheme}
               className={`hidden sm:flex items-center justify-center w-10 h-10 rounded-full liquid-glass animate-blur-fade-up opacity-0 transition-colors ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'}`}
               style={{ animationDelay: "380ms" }}
             >
@@ -107,7 +109,7 @@ export default function CinematicHero() {
             <div className={`sm:hidden flex items-center justify-between mt-4 pt-4 border-t ${isDarkMode ? 'border-gray-800' : 'border-gray-200'}`}>
 
               <button 
-                onClick={() => setIsDarkMode(!isDarkMode)}
+                onClick={toggleTheme}
                 className={`flex items-center justify-center w-10 h-10 rounded-full liquid-glass transition-colors ${isDarkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'}`}
               >
                 {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
