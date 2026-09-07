@@ -1,6 +1,6 @@
 export const HERO_CONTENT = {
   logo: "⌘ PROMPT-LAB",
-  navLinks: ["Build", "Templates", "Gallery"],
+  navLinks: ["Build", "Templates", "Gallery", "Ai Skills"],
   title: "Pick a Stack. Get a Prompt.",
   description: "Select your language, backend, database, and animation library as pills — watch a production-ready prompt assemble itself, live.",
   buttons: {

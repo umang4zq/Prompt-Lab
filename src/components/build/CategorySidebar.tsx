@@ -1,7 +1,7 @@
 "use client";
 
 import type { Category, Selections } from "../../lib/prompt/generate";
-import { Code, Database, Layout, Sparkles, Box } from "lucide-react";
+import { Code, Database, Layout, Sparkles, Box, Award } from "lucide-react";
 import { BUILD_CONTENT } from "../../lib/constants/buildContent";
 
 interface CategorySidebarProps {
@@ -12,11 +12,12 @@ interface CategorySidebarProps {
 
 export default function CategorySidebar({ categories, selections, activeCategorySlug }: CategorySidebarProps) {
   const IconComponent = ({ iconName, size = 16 }: { iconName: string, size?: number }) => {
-    switch(iconName) {
+    switch(iconName?.toLowerCase()) {
       case "code": return <Code size={size} />;
       case "database": return <Database size={size} />;
       case "layout": return <Layout size={size} />;
       case "sparkles": return <Sparkles size={size} />;
+      case "award": return <Award size={size} />;
       default: return <Box size={size} />;
     }
   };

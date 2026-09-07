@@ -63,7 +63,7 @@ export default function Navbar() {
           {HERO_CONTENT.navLinks.map((link, i) => (
             <Link 
               key={link}
-              href={`/${link.toLowerCase()}`}
+              href={`/${link.toLowerCase().replace(/\s+/g, '-')}`}
               className="text-sm font-medium transition-colors animate-blur-fade-up opacity-0 dark:hover:text-gray-300 hover:text-gray-600 text-black dark:text-white"
               style={{ animationDelay: `${100 + (i * 50)}ms` }}
             >
@@ -136,7 +136,7 @@ export default function Navbar() {
           {HERO_CONTENT.navLinks.map((link, i) => (
             <Link 
               key={link}
-              href={`/${link.toLowerCase()}`}
+              href={`/${link.toLowerCase().replace(/\s+/g, '-')}`}
               className="py-3 px-3 text-sm font-medium rounded-lg transition-all duration-500 dark:hover:bg-gray-800/50 hover:bg-gray-100/50 dark:text-white text-black"
               style={{
                 transform: mobileMenuOpen ? "translateX(0)" : "translateX(-1rem)",

@@ -94,8 +94,6 @@ export function generatePrompt(
     parts.push(`## Additional Requirements\n${extraLines.join('\n')}`);
   }
 
-  // 7. Standard reviewer footer, matching Umang's own agent-prompt convention
-  parts.push(`Your output will be reviewed by another AI agent for bugs, consistency, and responsiveness before it goes to production.`);
 
   return parts.join('\n\n');
 }
