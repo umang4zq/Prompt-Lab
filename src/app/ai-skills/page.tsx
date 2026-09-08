@@ -435,6 +435,247 @@ const Slide4 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
   </SlideContainer>
 );
 
+const Slide5 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="AI SKILLS / AWESOME-DESIGN-MD"
+    footerLeft={
+      <Link 
+        href="https://github.com/VoltAgent/awesome-design-md"
+        target="_blank"
+        className="flex items-center gap-2 hover:opacity-70 transition-opacity"
+        style={{ color: accentColor }}
+      >
+        <Terminal size={16} />
+        GITHUB.COM/VOLTAGENT
+      </Link>
+    }
+    footerRight="01 / 02"
+  >
+    <h1 
+      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      THE ULTIMATE AI<br />
+      DESIGN BLUEPRINT:<br />
+      <span style={{ color: accentColor }}>AWESOME-DESIGN-MD</span>
+    </h1>
+    
+    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+      Stop manually translating design files. Awesome-design-md is a curated collection of DESIGN.md files extracted from top-tier websites like Vercel, Stripe, and Apple. You simply drop a markdown file into your project, and your AI agent instantly knows exactly how the UI should look and feel.
+    </p>
+
+    <div className="flex flex-col gap-3 w-full mt-auto">
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          Replaces Figma exports and complex JSON schemas with a simple, plain-text markdown format that AI coding tools natively understand.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          Captures real design depth, including visual themes, typography rules, color palettes, and responsive behaviors.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          Features 55 different design systems from major tech platforms, developer tools, and consumer apps.
+        </div>
+      </div>
+    </div>
+  </SlideContainer>
+);
+
+const Slide6 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="HOW TO USE THIS REPO"
+    footerLeft={
+      <Link 
+        href="https://github.com/VoltAgent/awesome-design-md"
+        target="_blank"
+        className="flex items-center gap-2 hover:opacity-70 transition-opacity"
+        style={{ color: accentColor }}
+      >
+        <Terminal size={16} />
+        GITHUB.COM/VOLTAGENT
+      </Link>
+    }
+    footerRight="02 / 02"
+  >
+    <h1 
+      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      HOW TO USE<br />
+      <span style={{ color: accentColor }}>THIS REPO</span>
+    </h1>
+
+    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+      Integrate these design blueprints directly into your workspace so your background coding assistants can generate consistent, pixel-accurate interfaces automatically.
+    </p>
+    
+    <div className="flex flex-col gap-3 w-full mt-auto">
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          <strong>Install as an Antigravities Skill:</strong> Simply download a DESIGN.md file from the repository and drop it straight into your project's root folder or Antigravity directory.
+        </div>
+      </div>
+      
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          <strong>Power Your Agents:</strong> Point your background AI tools or agents at this markdown file so they understand the exact visual rules before generating frontend React or Flutter components.
+        </div>
+      </div>
+
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          <strong>Standardize with Friends:</strong> Share this repo with Jenil and your IT classmates so you can all build high-quality UI without needing a professional design background.
+        </div>
+      </div>
+    </div>
+    
+    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60">
+      repository URL:
+      <br />
+      <a 
+        href="https://github.com/VoltAgent/awesome-design-md"
+        target="_blank"
+        className="hover:underline font-bold text-black break-all"
+      >
+        https://github.com/VoltAgent/awesome-design-md
+      </a>
+    </div>
+  </SlideContainer>
+);
+
+const Slide7 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="AI SKILLS / SUPERPOWERS"
+    footerLeft={
+      <Link 
+        href="https://github.com/obra/superpowers"
+        target="_blank"
+        className="flex items-center gap-2 hover:opacity-70 transition-opacity"
+        style={{ color: accentColor }}
+      >
+        <Terminal size={16} />
+        GITHUB.COM/OBRA
+      </Link>
+    }
+    footerRight="01 / 02"
+  >
+    <h1 
+      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      UPGRADE YOUR AI:<br />
+      <span style={{ color: accentColor }}>SUPERPOWERS</span>
+    </h1>
+    
+    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+      This repository is like a magic toolbelt for your AI. Instead of just writing code, your background helpers get real "superpowers" to do bigger tasks. It connects your setup to new apps and extra features so you do not have to build everything from scratch.
+    </p>
+
+    <div className="flex flex-col gap-3 w-full mt-auto">
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          Gives your background AI new tools to do much more than just type text.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          Very simple to add to your current computer setup.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          Saves you hours of boring work by doing the heavy lifting for you.
+        </div>
+      </div>
+    </div>
+  </SlideContainer>
+);
+
+const Slide8 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="HOW TO USE THIS REPO"
+    footerLeft={
+      <Link 
+        href="https://github.com/obra/superpowers"
+        target="_blank"
+        className="flex items-center gap-2 hover:opacity-70 transition-opacity"
+        style={{ color: accentColor }}
+      >
+        <Terminal size={16} />
+        GITHUB.COM/OBRA
+      </Link>
+    }
+    footerRight="02 / 02"
+  >
+    <h1 
+      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      HOW TO USE<br />
+      <span style={{ color: accentColor }}>THIS REPO</span>
+    </h1>
+
+    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+      Add these tools to your workspace so your coding helpers become much stronger and faster.
+    </p>
+    
+    <div className="flex flex-col gap-3 w-full mt-auto">
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          <strong>Install as an Antigravities Skill:</strong> Download the files from the link and drop them into your Antigravity skills folder to turn on the new superpowers.
+        </div>
+      </div>
+      
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          <strong>Power Your Agents:</strong> Let your background helpers use these new tools so they can finish big tasks without you holding their hand.
+        </div>
+      </div>
+
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          <strong>Share with Friends:</strong> Send this link to Jenil and your college friends so they can make their own coding setups super powerful too.
+        </div>
+      </div>
+    </div>
+    
+    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60">
+      repository URL:
+      <br />
+      <a 
+        href="https://github.com/obra/superpowers"
+        target="_blank"
+        className="hover:underline font-bold text-black break-all"
+      >
+        https://github.com/obra/superpowers
+      </a>
+    </div>
+  </SlideContainer>
+);
+
 export default function AiSkillsPage() {
   const [accentColor, setAccentColor] = useState("#2F50FD");
   const [bgColor, setBgColor] = useState("#F7F5EC");
@@ -449,6 +690,16 @@ export default function AiSkillsPage() {
   const post2Slides = [
     <Slide3 key="3" bgColor={bgColor} accentColor="#FF3B30" />,
     <Slide4 key="4" bgColor={bgColor} accentColor="#FF3B30" />
+  ];
+
+  const post3Slides = [
+    <Slide5 key="5" bgColor={bgColor} accentColor="#FF9500" />,
+    <Slide6 key="6" bgColor={bgColor} accentColor="#FF9500" />
+  ];
+
+  const post4Slides = [
+    <Slide7 key="7" bgColor={bgColor} accentColor="#34C759" />,
+    <Slide8 key="8" bgColor={bgColor} accentColor="#34C759" />
   ];
 
   return (
@@ -468,6 +719,14 @@ export default function AiSkillsPage() {
 
         <ThumbnailWrapper onClick={() => { setActiveSlides(post2Slides); setActiveSlideIndex(0); }}>
           {post2Slides[0]}
+        </ThumbnailWrapper>
+
+        <ThumbnailWrapper onClick={() => { setActiveSlides(post3Slides); setActiveSlideIndex(0); }}>
+          {post3Slides[0]}
+        </ThumbnailWrapper>
+
+        <ThumbnailWrapper onClick={() => { setActiveSlides(post4Slides); setActiveSlideIndex(0); }}>
+          {post4Slides[0]}
         </ThumbnailWrapper>
       </div>
 
