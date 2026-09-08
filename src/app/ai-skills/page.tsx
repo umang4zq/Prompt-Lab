@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight, Terminal, X, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface SlideProps {
   bgColor?: string;
@@ -64,18 +65,26 @@ function SlideContainer({
 // Wrapper that forces a 600x800 render of the slide and scales it down to 300x400
 function ThumbnailWrapper({ children, onClick }: { children: React.ReactNode, onClick: () => void }) {
   return (
-    <div 
-      className="w-[300px] h-[400px] relative overflow-hidden cursor-pointer group hover:scale-[1.03] transition-all duration-300 shadow-xl hover:shadow-2xl mx-auto rounded-sm"
+    <motion.div 
+      className="w-[300px] h-[400px] relative overflow-hidden cursor-pointer group shadow-xl hover:shadow-2xl rounded-sm"
       onClick={onClick}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", bounce: 0, duration: 0.4 }}
     >
       <div className="absolute top-0 left-0 w-[600px] h-[800px] origin-top-left scale-50 pointer-events-none">
         {children}
       </div>
       {/* Overlay for hover effect */}
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
-    </div>
+    </motion.div>
   );
 }
+
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset: number, velocity: number) => {
+  return Math.abs(offset) * velocity;
+};
 
 // Modal to display the full-size slide with navigation
 function SlideModal({ 
@@ -107,62 +116,84 @@ function SlideModal({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, hasNext, hasPrev, onNext, onPrev, onClose]);
 
-  if (!isOpen) return null;
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/80 backdrop-blur-md transition-opacity" 
-      onClick={onClose}
-    >
-      <button 
-        onClick={onClose} 
-        className="absolute top-6 right-6 text-white/70 hover:text-white z-50 transition-colors bg-black/20 hover:bg-black/40 p-2 rounded-full"
-      >
-        <X size={32} />
-      </button>
-
-      {/* Navigation Arrows */}
-      {hasPrev && (
-        <button 
-          onClick={(e) => { e.stopPropagation(); onPrev(); }}
-          className="absolute left-4 md:left-12 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-50 transition-colors p-4 hidden sm:block"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/40 backdrop-blur-[20px] saturate-150 transition-colors" 
+          onClick={onClose}
         >
-          <ChevronLeft size={48} />
-        </button>
-      )}
-      
-      {hasNext && (
-        <button 
-          onClick={(e) => { e.stopPropagation(); onNext(); }}
-          className="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-50 transition-colors p-4 hidden sm:block"
-        >
-          <ChevronRight size={48} />
-        </button>
-      )}
+          <button 
+            onClick={onClose} 
+            className="absolute top-6 right-6 text-white/70 hover:text-white z-50 transition-colors bg-black/20 hover:bg-black/40 p-2 rounded-full"
+          >
+            <X size={32} />
+          </button>
 
-      <div 
-        className="relative w-full max-w-[600px] aspect-[3/4] max-h-[90vh] flex flex-col rounded-sm shadow-2xl overflow-y-auto hidden-scrollbar"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {children}
-        
-        {/* Mobile Navigation (shows below content on small screens) */}
-        <div className="sm:hidden flex justify-between items-center bg-black p-4 sticky bottom-0 z-50">
-          <button 
-            onClick={(e) => { e.stopPropagation(); onPrev(); }}
-            className={`text-white p-2 ${!hasPrev && 'opacity-30 pointer-events-none'}`}
+          {/* Navigation Arrows */}
+          {hasPrev && (
+            <button 
+              onClick={(e) => { e.stopPropagation(); onPrev(); }}
+              className="absolute left-4 md:left-12 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-50 transition-colors p-4 hidden sm:block"
+            >
+              <ChevronLeft size={48} />
+            </button>
+          )}
+          
+          {hasNext && (
+            <button 
+              onClick={(e) => { e.stopPropagation(); onNext(); }}
+              className="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-50 transition-colors p-4 hidden sm:block"
+            >
+              <ChevronRight size={48} />
+            </button>
+          )}
+
+          <motion.div 
+            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+            transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+            className="relative w-full max-w-[600px] aspect-[3/4] max-h-[90vh] flex flex-col rounded-sm shadow-2xl overflow-y-auto hidden-scrollbar"
+            onClick={(e) => e.stopPropagation()}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = swipePower(offset.x, velocity.x);
+              if (swipe < -swipeConfidenceThreshold && hasNext) {
+                onNext();
+              } else if (swipe > swipeConfidenceThreshold && hasPrev) {
+                onPrev();
+              }
+            }}
           >
-            <ChevronLeft size={32} />
-          </button>
-          <span className="text-white/50 text-xs font-mono">SWIPE OR CLICK</span>
-          <button 
-            onClick={(e) => { e.stopPropagation(); onNext(); }}
-            className={`text-white p-2 ${!hasNext && 'opacity-30 pointer-events-none'}`}
-          >
-            <ChevronRight size={32} />
-          </button>
-        </div>
-      </div>
-    </div>
+            {children}
+            
+            {/* Mobile Navigation (shows below content on small screens) */}
+            <div className="sm:hidden flex justify-between items-center bg-black p-4 sticky bottom-0 z-50">
+              <button 
+                onClick={(e) => { e.stopPropagation(); onPrev(); }}
+                className={`text-white p-2 ${!hasPrev && 'opacity-30 pointer-events-none'}`}
+              >
+                <ChevronLeft size={32} />
+              </button>
+              <span className="text-white/50 text-xs font-mono">SWIPE OR CLICK</span>
+              <button 
+                onClick={(e) => { e.stopPropagation(); onNext(); }}
+                className={`text-white p-2 ${!hasNext && 'opacity-30 pointer-events-none'}`}
+              >
+                <ChevronRight size={32} />
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -283,14 +314,141 @@ const Slide2 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
   </SlideContainer>
 );
 
+const Slide3 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="AI SKILLS / APPLE DESIGN"
+    footerLeft={
+      <Link 
+        href="https://github.com/emilkowalski/skills/blob/main/skills/apple-design/SKILL.md"
+        target="_blank"
+        className="flex items-center gap-2 hover:opacity-70 transition-opacity"
+        style={{ color: accentColor }}
+      >
+        <Terminal size={16} />
+        GITHUB.COM/EMILKOWALSKI
+      </Link>
+    }
+    footerRight="01 / 02"
+  >
+    <h1 
+      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      APPLE-LEVEL UI &<br />
+      FLUID MOTION:<br />
+      <span style={{ color: accentColor }}>APPLE DESIGN SKILL</span>
+    </h1>
+    
+    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+      Stop making your web apps feel stiff and robotic. This skill translates Apple's legendary design principles—fluid physical motion, spring physics, drag and swipe interactions, and gorgeous translucent depth—directly into your frontend projects so your interfaces actually feel alive.
+    </p>
+
+    <div className="flex flex-col gap-3 w-full mt-auto">
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          Embeds Apple's approach to interface design, fluid motion, and spatial consistency into your AI coding agent.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          Masters interruptible transitions, momentum scrolling, and spring curves instead of weak default CSS easings.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          Handles subtle details like translucent materials, proper typography tracking, and reduced-motion preferences effortlessly.
+        </div>
+      </div>
+    </div>
+  </SlideContainer>
+);
+
+const Slide4 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="HOW TO USE / INSTALL"
+    footerLeft={
+      <Link 
+        href="https://github.com/emilkowalski/skills/blob/main/skills/apple-design/SKILL.md"
+        target="_blank"
+        className="flex items-center gap-2 hover:opacity-70 transition-opacity"
+        style={{ color: accentColor }}
+      >
+        <Terminal size={16} />
+        GITHUB.COM/EMILKOWALSKI
+      </Link>
+    }
+    footerRight="02 / 02"
+  >
+    <h1 
+      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      HOW TO USE AND<br />
+      <span style={{ color: accentColor }}>INSTALL THIS SKILL</span>
+    </h1>
+
+    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+      Integrate Apple's design philosophy into your workflow to instantly elevate your frontend projects without guessing animation curves or spacing.
+    </p>
+    
+    <div className="flex flex-col gap-3 w-full mt-auto">
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          <strong>Install as an Antigravity Skill:</strong> Simply grab the apple-design SKILL.md file from the repository and drop it into your Antigravity skills directory to level up your local AI setup.
+        </div>
+      </div>
+      
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          <strong>Guide Your AI Agent:</strong> Use it when building gesture-driven UI, swipe-to-dismiss sheets, or custom component animations so your AI writes code that actually feels natural and smooth.
+        </div>
+      </div>
+
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+          <strong>Share with Friends:</strong> Show this repository to Jenil and your college peers to instantly upgrade your team's frontend game and make your web projects look like they were built by a top-tier design engineer.
+        </div>
+      </div>
+    </div>
+    
+    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60">
+      repository URL:
+      <br />
+      <a 
+        href="https://github.com/emilkowalski/skills/blob/main/skills/apple-design/SKILL.md"
+        target="_blank"
+        className="hover:underline font-bold text-black break-all"
+      >
+        https://github.com/emilkowalski/skills/blob/main/skills/apple-design/SKILL.md
+      </a>
+    </div>
+  </SlideContainer>
+);
+
 export default function AiSkillsPage() {
   const [accentColor, setAccentColor] = useState("#2F50FD");
   const [bgColor, setBgColor] = useState("#F7F5EC");
+  const [activeSlides, setActiveSlides] = useState<React.ReactNode[]>([]);
   const [activeSlideIndex, setActiveSlideIndex] = useState<number | null>(null);
 
-  const slides = [
+  const post1Slides = [
     <Slide1 key="1" bgColor={bgColor} accentColor={accentColor} />,
     <Slide2 key="2" bgColor={bgColor} accentColor={accentColor} />
+  ];
+
+  const post2Slides = [
+    <Slide3 key="3" bgColor={bgColor} accentColor="#FF3B30" />,
+    <Slide4 key="4" bgColor={bgColor} accentColor="#FF3B30" />
   ];
 
   return (
@@ -301,34 +459,27 @@ export default function AiSkillsPage() {
         <p className="text-neutral-400 max-w-2xl mx-auto text-lg mb-8">
           Explore powerful AI skills and prompt structures designed to supercharge your workflow.
         </p>
-        
-        <div className="flex justify-center gap-6 bg-white/5 p-4 rounded-full border border-white/10 w-fit mx-auto">
-          <label className="flex items-center gap-2 text-white text-sm font-medium">
-            Accent:
-            <input type="color" value={accentColor} onChange={(e) => setAccentColor(e.target.value)} className="bg-transparent w-6 h-6 cursor-pointer" />
-          </label>
-          <label className="flex items-center gap-2 text-white text-sm font-medium border-l border-white/20 pl-6">
-            Background:
-            <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} className="bg-transparent w-6 h-6 cursor-pointer" />
-          </label>
-        </div>
       </div>
 
-      <div className="flex justify-center w-full max-w-[1600px] mx-auto px-4">
-        <ThumbnailWrapper onClick={() => setActiveSlideIndex(0)}>
-          {slides[0]}
+      <div className="flex flex-wrap justify-center gap-8 w-full max-w-[1600px] mx-auto px-4">
+        <ThumbnailWrapper onClick={() => { setActiveSlides(post1Slides); setActiveSlideIndex(0); }}>
+          {post1Slides[0]}
+        </ThumbnailWrapper>
+
+        <ThumbnailWrapper onClick={() => { setActiveSlides(post2Slides); setActiveSlideIndex(0); }}>
+          {post2Slides[0]}
         </ThumbnailWrapper>
       </div>
 
       <SlideModal 
         isOpen={activeSlideIndex !== null} 
         onClose={() => setActiveSlideIndex(null)}
-        onNext={() => activeSlideIndex !== null && setActiveSlideIndex((activeSlideIndex + 1) % slides.length)}
-        onPrev={() => activeSlideIndex !== null && setActiveSlideIndex((activeSlideIndex - 1 + slides.length) % slides.length)}
+        onNext={() => activeSlideIndex !== null && setActiveSlideIndex((activeSlideIndex + 1) % activeSlides.length)}
+        onPrev={() => activeSlideIndex !== null && setActiveSlideIndex((activeSlideIndex - 1 + activeSlides.length) % activeSlides.length)}
         hasPrev={activeSlideIndex !== null && activeSlideIndex > 0}
-        hasNext={activeSlideIndex !== null && activeSlideIndex < slides.length - 1}
+        hasNext={activeSlideIndex !== null && activeSlideIndex < activeSlides.length - 1}
       >
-        {activeSlideIndex !== null && slides[activeSlideIndex]}
+        {activeSlideIndex !== null && activeSlides[activeSlideIndex]}
       </SlideModal>
     </div>
   );
