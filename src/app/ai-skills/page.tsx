@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ArrowRight, Terminal, X, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -31,28 +31,28 @@ function SlideContainer({
 }: SlideProps) {
   return (
     <div
-      className="relative w-full h-full font-sans flex flex-col shadow-2xl overflow-hidden"
+      className="relative w-full min-h-full shrink-0 font-sans flex flex-col shadow-2xl overflow-hidden"
       style={{ backgroundColor: bgColor, color: textColor }}
     >
       {/* Top Header */}
-      <div className="flex justify-between items-center text-xs tracking-widest uppercase font-semibold mb-4 z-10 p-6 md:p-8 pb-0">
+      <div className="flex justify-between items-center text-[10px] sm:text-xs tracking-widest uppercase font-semibold mb-4 z-10 p-4 sm:p-6 md:p-8 pb-0">
         <div>{headerLeft}</div>
         <div>{headerRight}</div>
       </div>
 
       {/* Main Content Area with Borders */}
       <div
-        className="flex-grow flex flex-col relative border-l border-t ml-6 md:ml-8"
+        className="flex-grow flex flex-col relative border-l border-t ml-4 sm:ml-6 md:ml-8"
         style={{ borderColor }}
       >
-        <div className="pt-6 pl-6 pr-6 pb-6 flex flex-col flex-grow">
+        <div className="p-4 sm:p-6 flex flex-col flex-grow">
           {children}
         </div>
       </div>
 
       {/* Footer Area with Borders */}
       <div
-        className="flex justify-between items-center text-xs font-semibold tracking-wider p-6 md:p-8 pt-4 border-t border-l uppercase mt-auto ml-6 md:ml-8"
+        className="flex justify-between items-center text-[10px] sm:text-xs font-semibold tracking-wider p-4 sm:p-6 md:p-8 pt-4 border-t border-l uppercase mt-auto ml-4 sm:ml-6 md:ml-8"
         style={{ borderColor }}
       >
         <div className="flex items-center gap-2">{footerLeft}</div>
@@ -124,15 +124,18 @@ function SlideModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/40 backdrop-blur-[20px] saturate-150 transition-colors" 
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 sm:p-8 bg-black/40 backdrop-blur-[20px] saturate-150 transition-colors" 
           onClick={onClose}
         >
-          <button 
-            onClick={onClose} 
-            className="absolute top-6 right-6 text-white/70 hover:text-white z-50 transition-colors bg-black/20 hover:bg-black/40 p-2 rounded-full"
-          >
-            <X size={32} />
-          </button>
+          {/* Top Bar with X button */}
+          <div className="w-full max-w-[600px] flex justify-end mb-4 shrink-0 z-50">
+            <button 
+              onClick={onClose} 
+              className="text-white/70 hover:text-white transition-colors bg-white/10 hover:bg-white/20 p-2 rounded-full"
+            >
+              <X size={28} />
+            </button>
+          </div>
 
           {/* Navigation Arrows */}
           {hasPrev && (
@@ -158,7 +161,8 @@ function SlideModal({
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 20 }}
             transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-            className="relative w-full max-w-[600px] aspect-[3/4] max-h-[90vh] flex flex-col rounded-sm shadow-2xl overflow-y-auto hidden-scrollbar"
+            className="relative w-full flex-grow min-h-0 sm:flex-none sm:h-auto sm:aspect-[3/4] flex flex-col rounded-sm shadow-2xl overflow-y-auto hidden-scrollbar bg-neutral-900"
+            style={{ maxWidth: '600px', maxHeight: '85vh' }}
             onClick={(e) => e.stopPropagation()}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
@@ -173,24 +177,24 @@ function SlideModal({
             }}
           >
             {children}
-            
-            {/* Mobile Navigation (shows below content on small screens) */}
-            <div className="sm:hidden flex justify-between items-center bg-black p-4 sticky bottom-0 z-50">
-              <button 
-                onClick={(e) => { e.stopPropagation(); onPrev(); }}
-                className={`text-white p-2 ${!hasPrev && 'opacity-30 pointer-events-none'}`}
-              >
-                <ChevronLeft size={32} />
-              </button>
-              <span className="text-white/50 text-xs font-mono">SWIPE OR CLICK</span>
-              <button 
-                onClick={(e) => { e.stopPropagation(); onNext(); }}
-                className={`text-white p-2 ${!hasNext && 'opacity-30 pointer-events-none'}`}
-              >
-                <ChevronRight size={32} />
-              </button>
-            </div>
           </motion.div>
+          
+          {/* Mobile Navigation (shows below content on small screens) */}
+          <div className="sm:hidden flex justify-between items-center w-full max-w-[600px] mt-4 shrink-0 px-2">
+            <button 
+              onClick={(e) => { e.stopPropagation(); onPrev(); }}
+              className={`text-white p-3 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 transition-colors ${!hasPrev && 'opacity-30 pointer-events-none'}`}
+            >
+              <ChevronLeft size={28} />
+            </button>
+            <span className="text-white/70 text-[10px] tracking-widest font-mono uppercase bg-black/40 px-4 py-2 rounded-full">Swipe or Click</span>
+            <button 
+              onClick={(e) => { e.stopPropagation(); onNext(); }}
+              className={`text-white p-3 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 transition-colors ${!hasNext && 'opacity-30 pointer-events-none'}`}
+            >
+              <ChevronRight size={28} />
+            </button>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
@@ -212,7 +216,7 @@ const Slide1 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
     footerRight="01 / 02"
   >
     <h1 
-      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4"
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4"
       style={{ fontFamily: "'Oswald', sans-serif" }}
     >
       THE ULTIMATE AI<br />
@@ -220,26 +224,26 @@ const Slide1 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
       <span style={{ color: accentColor }}>UI/UX PRO MAX</span>
     </h1>
     
-    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
       Stop guessing your layouts and hex codes. The <strong>ui-ux-pro-max-skill</strong> is an AI-powered reasoning engine that instantly generates complete, professional design systems for any project. Just provide your requirements, and it analyzes your product to output perfectly tailored UI patterns, typography pairings, and color palettes ready for production.
     </p>
 
     <div className="flex flex-col gap-3 w-full mt-auto">
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Intelligent Design System Generator backed by 192 industry-specific reasoning rules.
         </div>
       </div>
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Explores 79 searchable UI styles to match your exact aesthetic, whether you need a soft minimalist look or a dark cyber-noir layout.
         </div>
       </div>
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Provides native architectural support for 22 tech stacks, including React, Flutter, and Tailwind.
         </div>
       </div>
@@ -266,35 +270,35 @@ const Slide2 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
     footerRight="02 / 02"
   >
     <h1 
-      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
       style={{ fontFamily: "'Oswald', sans-serif" }}
     >
       HOW TO USE<br />
       <span style={{ color: accentColor }}>THIS REPO</span>
     </h1>
 
-    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
       Integrate this design intelligence directly into your existing architecture to automate layout generation and maintain strict frontend standards across your applications.
     </p>
     
     <div className="flex flex-col gap-3 w-full mt-auto">
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Feed the skill's design JSON into your LLM pipelines (like Gemini or Claude) so your background AI agents can generate pixel-perfect React or Flutter components.
         </div>
       </div>
       
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Run the built-in pre-delivery checklist to automatically enforce strict UX guidelines and accessibility rules across your frontend workflow.
         </div>
       </div>
 
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Share the repository with Jenil and your other CS/IT friends to help them standardize their application architectures and easily avoid common design anti-patterns.
         </div>
       </div>
@@ -333,7 +337,7 @@ const Slide3 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
     footerRight="01 / 02"
   >
     <h1 
-      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
       style={{ fontFamily: "'Oswald', sans-serif" }}
     >
       APPLE-LEVEL UI &<br />
@@ -341,26 +345,26 @@ const Slide3 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
       <span style={{ color: accentColor }}>APPLE DESIGN SKILL</span>
     </h1>
     
-    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
       Stop making your web apps feel stiff and robotic. This skill translates Apple's legendary design principles—fluid physical motion, spring physics, drag and swipe interactions, and gorgeous translucent depth—directly into your frontend projects so your interfaces actually feel alive.
     </p>
 
     <div className="flex flex-col gap-3 w-full mt-auto">
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Embeds Apple's approach to interface design, fluid motion, and spatial consistency into your AI coding agent.
         </div>
       </div>
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Masters interruptible transitions, momentum scrolling, and spring curves instead of weak default CSS easings.
         </div>
       </div>
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Handles subtle details like translucent materials, proper typography tracking, and reduced-motion preferences effortlessly.
         </div>
       </div>
@@ -387,35 +391,35 @@ const Slide4 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
     footerRight="02 / 02"
   >
     <h1 
-      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
       style={{ fontFamily: "'Oswald', sans-serif" }}
     >
       HOW TO USE AND<br />
       <span style={{ color: accentColor }}>INSTALL THIS SKILL</span>
     </h1>
 
-    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
       Integrate Apple's design philosophy into your workflow to instantly elevate your frontend projects without guessing animation curves or spacing.
     </p>
     
     <div className="flex flex-col gap-3 w-full mt-auto">
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           <strong>Install as an Antigravity Skill:</strong> Simply grab the apple-design SKILL.md file from the repository and drop it into your Antigravity skills directory to level up your local AI setup.
         </div>
       </div>
       
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           <strong>Guide Your AI Agent:</strong> Use it when building gesture-driven UI, swipe-to-dismiss sheets, or custom component animations so your AI writes code that actually feels natural and smooth.
         </div>
       </div>
 
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           <strong>Share with Friends:</strong> Show this repository to Jenil and your college peers to instantly upgrade your team's frontend game and make your web projects look like they were built by a top-tier design engineer.
         </div>
       </div>
@@ -454,7 +458,7 @@ const Slide5 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
     footerRight="01 / 02"
   >
     <h1 
-      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
       style={{ fontFamily: "'Oswald', sans-serif" }}
     >
       THE ULTIMATE AI<br />
@@ -462,26 +466,26 @@ const Slide5 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
       <span style={{ color: accentColor }}>AWESOME-DESIGN-MD</span>
     </h1>
     
-    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
       Stop manually translating design files. Awesome-design-md is a curated collection of DESIGN.md files extracted from top-tier websites like Vercel, Stripe, and Apple. You simply drop a markdown file into your project, and your AI agent instantly knows exactly how the UI should look and feel.
     </p>
 
     <div className="flex flex-col gap-3 w-full mt-auto">
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Replaces Figma exports and complex JSON schemas with a simple, plain-text markdown format that AI coding tools natively understand.
         </div>
       </div>
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Captures real design depth, including visual themes, typography rules, color palettes, and responsive behaviors.
         </div>
       </div>
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Features 55 different design systems from major tech platforms, developer tools, and consumer apps.
         </div>
       </div>
@@ -508,35 +512,35 @@ const Slide6 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
     footerRight="02 / 02"
   >
     <h1 
-      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
       style={{ fontFamily: "'Oswald', sans-serif" }}
     >
       HOW TO USE<br />
       <span style={{ color: accentColor }}>THIS REPO</span>
     </h1>
 
-    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
       Integrate these design blueprints directly into your workspace so your background coding assistants can generate consistent, pixel-accurate interfaces automatically.
     </p>
     
     <div className="flex flex-col gap-3 w-full mt-auto">
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           <strong>Install as an Antigravities Skill:</strong> Simply download a DESIGN.md file from the repository and drop it straight into your project's root folder or Antigravity directory.
         </div>
       </div>
       
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           <strong>Power Your Agents:</strong> Point your background AI tools or agents at this markdown file so they understand the exact visual rules before generating frontend React or Flutter components.
         </div>
       </div>
 
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           <strong>Standardize with Friends:</strong> Share this repo with Jenil and your IT classmates so you can all build high-quality UI without needing a professional design background.
         </div>
       </div>
@@ -575,33 +579,33 @@ const Slide7 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
     footerRight="01 / 02"
   >
     <h1 
-      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
       style={{ fontFamily: "'Oswald', sans-serif" }}
     >
       UPGRADE YOUR AI:<br />
       <span style={{ color: accentColor }}>SUPERPOWERS</span>
     </h1>
     
-    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
       This repository is like a magic toolbelt for your AI. Instead of just writing code, your background helpers get real "superpowers" to do bigger tasks. It connects your setup to new apps and extra features so you do not have to build everything from scratch.
     </p>
 
     <div className="flex flex-col gap-3 w-full mt-auto">
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Gives your background AI new tools to do much more than just type text.
         </div>
       </div>
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Very simple to add to your current computer setup.
         </div>
       </div>
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           Saves you hours of boring work by doing the heavy lifting for you.
         </div>
       </div>
@@ -628,35 +632,35 @@ const Slide8 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
     footerRight="02 / 02"
   >
     <h1 
-      className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
       style={{ fontFamily: "'Oswald', sans-serif" }}
     >
       HOW TO USE<br />
       <span style={{ color: accentColor }}>THIS REPO</span>
     </h1>
 
-    <p className="text-sm md:text-base mb-6 font-medium leading-relaxed">
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
       Add these tools to your workspace so your coding helpers become much stronger and faster.
     </p>
     
     <div className="flex flex-col gap-3 w-full mt-auto">
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           <strong>Install as an Antigravities Skill:</strong> Download the files from the link and drop them into your Antigravity skills folder to turn on the new superpowers.
         </div>
       </div>
       
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           <strong>Power Your Agents:</strong> Let your background helpers use these new tools so they can finish big tasks without you holding their hand.
         </div>
       </div>
 
       <div className="flex items-start gap-4 border-b border-black/10 pb-3">
         <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
-        <div className="border-l border-black/20 pl-4 text-xs md:text-sm font-medium">
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
           <strong>Share with Friends:</strong> Send this link to Jenil and your college friends so they can make their own coding setups super powerful too.
         </div>
       </div>
@@ -703,7 +707,7 @@ export default function AiSkillsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-900 p-8 flex flex-col items-center gap-16 py-24">
+    <div className="min-h-screen bg-neutral-900 px-2 py-12 sm:p-8 flex flex-col items-center gap-8 sm:gap-16 sm:py-24">
       
       <div className="text-center mb-4">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">AI Skills Showcase</h1>
@@ -712,7 +716,7 @@ export default function AiSkillsPage() {
         </p>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-8 w-full max-w-[1600px] mx-auto px-4">
+      <div className="flex flex-wrap justify-center gap-6 sm:gap-8 w-full max-w-[1600px] mx-auto">
         <ThumbnailWrapper onClick={() => { setActiveSlides(post1Slides); setActiveSlideIndex(0); }}>
           {post1Slides[0]}
         </ThumbnailWrapper>
