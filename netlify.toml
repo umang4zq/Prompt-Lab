@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "build"
+
+# Next.js static exports (output: 'export') should serve the 'build' directory.
+# If you are using client-side routing, you may also need a rewrite rule:
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
