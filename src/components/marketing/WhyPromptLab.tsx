@@ -1,166 +1,254 @@
-"use client";
+'use client';
 
-import React from "react";
-import { motion, useReducedMotion, Variants } from "framer-motion";
+import { useMemo, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Copy, Check } from 'lucide-react';
+
+const GROUPS = [
+  {
+    key: 'framework',
+    label: 'Framework',
+    lead: 'Build with',
+    options: [
+      { id: 'next', name: 'Next.js 14', dot: '#e5e7eb' },
+      { id: 'react', name: 'React', dot: '#61dafb' },
+      { id: 'flutter', name: 'Flutter', dot: '#54c5f8' },
+    ],
+  },
+  {
+    key: 'styling',
+    label: 'Styling',
+    lead: 'Style with',
+    options: [
+      { id: 'tailwind', name: 'Tailwind CSS', dot: '#38bdf8' },
+      { id: 'shadcn', name: 'shadcn/ui', dot: '#e5e7eb' },
+      { id: 'css', name: 'Plain CSS modules', dot: '#a78bfa' },
+    ],
+  },
+  {
+    key: 'data',
+    label: 'Data',
+    lead: 'Store data in',
+    options: [
+      { id: 'supabase', name: 'Supabase', dot: '#3ecf8e' },
+      { id: 'postgres', name: 'Postgres', dot: '#7aa6d6' },
+      { id: 'firebase', name: 'Firebase', dot: '#f0b429' },
+    ],
+  },
+  {
+    key: 'rules',
+    label: 'House rules',
+    lead: 'Always',
+    options: [
+      { id: 'ts', name: 'use TypeScript in strict mode', dot: '#3178c6' },
+      { id: 'router', name: 'use the App Router', dot: '#e5e7eb' },
+      { id: 'terse', name: 'answer with code, no essay', dot: '#f0b429' },
+    ],
+  },
+];
+
+const DEFAULT_SELECTED = ['next', 'tailwind', 'supabase', 'ts'];
+const CLOSING_LINE = 'Assume all of this for the rest of the chat.';
 
 export default function WhyPromptLab() {
-  const reducedMotion = useReducedMotion();
+  const [selected, setSelected] = useState(DEFAULT_SELECTED);
+  const [copied, setCopied] = useState(false);
+  const reduceMotion = useReducedMotion();
 
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
+  const toggle = (id) => {
+    setCopied(false);
+    setSelected((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
   };
 
-  const textVariants: Variants = {
-    hidden: { opacity: reducedMotion ? 1 : 0, y: reducedMotion ? 0 : 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+  const lines = useMemo(() => {
+    const out = [];
+    for (const group of GROUPS) {
+      const picked = group.options
+        .filter((o) => selected.includes(o.id))
+        .map((o) => o.name);
+      if (!picked.length) continue;
+      const joined =
+        picked.length > 1
+          ? `${picked.slice(0, -1).join(', ')} and ${picked[picked.length - 1]}`
+          : picked[0];
+      out.push(`${group.lead} ${joined}.`);
     }
-  };
+    if (out.length) out.push(CLOSING_LINE);
+    return out;
+  }, [selected]);
 
-  const visualVariants: Variants = {
-    hidden: { opacity: reducedMotion ? 1 : 0, scale: reducedMotion ? 1 : 0.8, y: reducedMotion ? 0 : 20 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.34, 1.36, 0.64, 1] }
+  const wordCount = useMemo(
+    () => lines.join(' ').split(/\s+/).filter(Boolean).length,
+    [lines]
+  );
+
+  const copy = async () => {
+    if (!lines.length) return;
+    try {
+      await navigator.clipboard.writeText(lines.join('\n'));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
     }
   };
 
   return (
-    <section className="relative w-full dark:bg-[#0a0a0a] bg-neutral-100 dark:text-white text-neutral-900 py-24 md:py-40 overflow-hidden transition-colors duration-200">
-      <div className="max-w-6xl mx-auto px-6 lg:px-12">
-        {/* Header */}
-        <div className="mb-24 md:mb-32 text-center">
-          <h2 className="text-sm font-semibold tracking-widest dark:text-neutral-400 text-neutral-500 uppercase mb-4">Why Prompt-Lab</h2>
-          <p className="text-4xl md:text-6xl font-bold tracking-tight dark:text-white text-neutral-900">Stop explaining. Start building.</p>
-        </div>
+    <section className="relative z-10 py-24 px-6 border-t border-white/[0.08] bg-black/20 backdrop-blur-3xl text-white">
+      <div className="max-w-5xl mx-auto">
+        {/* Header — left aligned, no centred stack */}
+        <motion.div
+          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5 }}
+          className="max-w-2xl mb-12"
+        >
+          <h2 className="text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05] mb-5">
+            Set your stack once.
+            <br />
+            Paste it into any AI.
+          </h2>
+          <p className="text-[17px] text-white/55 font-light leading-relaxed">
+            Every new chat starts with you retyping the same setup — framework,
+            styling, database, the rules you always forget to mention.
+            Prompt-Lab turns that into one block you keep. Pick what you build
+            with below and watch the prompt write itself.
+          </p>
+        </motion.div>
 
-        <div className="space-y-32 md:space-y-48">
-          
-          {/* Panel 1: The Problem */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.25 }}
-            variants={containerVariants}
-            className="flex flex-col md:flex-row items-center gap-12 md:gap-24"
-          >
-            <div className="flex-1 space-y-6">
-              <motion.h3 variants={textVariants} className="text-3xl md:text-5xl font-bold tracking-tight dark:text-neutral-100 text-neutral-900">
-                The context tax is <span className="text-red-500 dark:text-red-400">too high.</span>
-              </motion.h3>
-              <motion.p variants={textVariants} className="text-lg md:text-xl dark:text-neutral-400 text-neutral-600 leading-relaxed">
-                AI coding models burn a massive number of tokens when you have to manually explain your tech stack, framework choices, folder structure, and conventions every single time you start a prompt.
-              </motion.p>
-            </div>
-            <div className="flex-1 flex justify-center w-full">
-              <motion.div variants={visualVariants} className="relative w-full max-w-sm aspect-video dark:bg-neutral-900 bg-white border dark:border-neutral-800 border-neutral-200 rounded-2xl p-6 flex flex-col justify-center gap-4 shadow-xl">
-                <div className="h-4 w-3/4 dark:bg-neutral-800 bg-neutral-200 rounded animate-pulse"></div>
-                <div className="h-4 w-full dark:bg-neutral-800 bg-neutral-200 rounded animate-pulse delay-75"></div>
-                <div className="h-4 w-5/6 dark:bg-neutral-800 bg-neutral-200 rounded animate-pulse delay-150"></div>
-                <div className="h-4 w-1/2 dark:bg-red-900/30 bg-red-100 text-red-600 rounded mt-2"></div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Panel 2: The Cost */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.25 }}
-            variants={containerVariants}
-            className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-24"
-          >
-            <div className="flex-1 space-y-6">
-              <motion.h3 variants={textVariants} className="text-3xl md:text-5xl font-bold tracking-tight dark:text-neutral-100 text-neutral-900">
-                Wasted tokens = <br/><span className="text-orange-500 dark:text-orange-400">worse output.</span>
-              </motion.h3>
-              <motion.p variants={textVariants} className="text-lg md:text-xl dark:text-neutral-400 text-neutral-600 leading-relaxed">
-                Every wasted token eats into your context window. That means less room for actual logic, poorer memory of previous steps, and repeated hallucinations across every new chat session.
-              </motion.p>
-            </div>
-            <div className="flex-1 flex justify-center w-full">
-              <motion.div variants={visualVariants} className="flex gap-6 flex-wrap justify-center items-center">
-                 <div className="w-28 h-28 rounded-full border-4 border-orange-500/30 flex items-center justify-center bg-orange-500/10 shadow-[0_0_30px_-5px_rgba(249,115,22,0.2)]">
-                    <span className="text-orange-500 dark:text-orange-400 font-bold text-2xl">-40%</span>
-                 </div>
-                 <div className="w-24 h-24 rounded-full border-2 dark:border-neutral-800 border-neutral-300 flex items-center justify-center dark:bg-neutral-900/50 bg-neutral-200/50">
-                    <span className="dark:text-neutral-400 text-neutral-600 font-medium text-sm text-center leading-tight">Context<br/>Limit</span>
-                 </div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Panel 3: The Fix */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.25 }}
-            variants={containerVariants}
-            className="flex flex-col md:flex-row items-center gap-12 md:gap-24"
-          >
-            <div className="flex-1 space-y-6">
-              <motion.h3 variants={textVariants} className="text-3xl md:text-5xl font-bold tracking-tight dark:text-neutral-100 text-neutral-900">
-                Pick visually. <br/><span className="text-emerald-500 dark:text-green-400">Generate instantly.</span>
-              </motion.h3>
-              <motion.p variants={textVariants} className="text-lg md:text-xl dark:text-neutral-400 text-neutral-600 leading-relaxed">
-                Instead of typing paragraphs of context, use our pill-based selector. Pick your framework, database, and styling tools in seconds. Prompt-Lab assembles a structured, perfectly optimized prompt for you.
-              </motion.p>
-            </div>
-            <div className="flex-1 flex justify-center w-full">
-              <div className="flex flex-wrap gap-4 justify-center max-w-sm">
-                <motion.div variants={visualVariants} className="px-6 py-3 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-600 dark:text-blue-400 font-medium shadow-md">Next.js</motion.div>
-                <motion.div variants={visualVariants} className="px-6 py-3 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-600 dark:text-teal-400 font-medium shadow-md">Tailwind CSS</motion.div>
-                <motion.div variants={visualVariants} className="px-6 py-3 rounded-full bg-green-500/10 border border-green-500/30 text-green-600 dark:text-green-400 font-medium shadow-md">Supabase</motion.div>
-                <motion.div variants={visualVariants} className="px-6 py-3 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-600 dark:text-purple-400 font-medium shadow-md">Framer Motion</motion.div>
+        {/* The composer */}
+        <motion.div
+          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="rounded-2xl border border-white/[0.1] bg-black/30 backdrop-blur-xl overflow-hidden"
+        >
+          <div className="grid md:grid-cols-[1.1fr_1fr]">
+            {/* Left: pick */}
+            <div className="p-7 lg:p-9 md:border-r border-white/[0.08]">
+              <div className="flex flex-col gap-7">
+                {GROUPS.map((group) => (
+                  <div key={group.key}>
+                    <div className="text-[13px] text-white/40 mb-3">
+                      {group.label}
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {group.options.map((opt) => {
+                        const on = selected.includes(opt.id);
+                        return (
+                          <button
+                            key={opt.id}
+                            type="button"
+                            onClick={() => toggle(opt.id)}
+                            aria-pressed={on}
+                            className={[
+                              'group inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[13px]',
+                              'border transition-colors duration-200',
+                              'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black',
+                              on
+                                ? 'bg-white/[0.12] border-white/25 text-white'
+                                : 'bg-transparent border-white/[0.12] text-white/45 hover:text-white/80 hover:border-white/25',
+                            ].join(' ')}
+                          >
+                            <span
+                              className="w-1.5 h-1.5 rounded-full transition-opacity duration-200"
+                              style={{
+                                backgroundColor: opt.dot,
+                                opacity: on ? 1 : 0.3,
+                              }}
+                            />
+                            {opt.name}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          </motion.div>
 
-          {/* Panel 4: The Result */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.25 }}
-            variants={containerVariants}
-            className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-24"
-          >
-            <div className="flex-1 space-y-6">
-              <motion.h3 variants={textVariants} className="text-3xl md:text-5xl font-bold tracking-tight dark:text-neutral-100 text-neutral-900">
-                More building. <br/><span className="text-blue-500 dark:text-blue-400">Zero repetition.</span>
-              </motion.h3>
-              <motion.p variants={textVariants} className="text-lg md:text-xl dark:text-neutral-400 text-neutral-600 leading-relaxed">
-                Get cleaner prompts, drastically more consistent AI outputs, and never rewrite the same stack context again. Keep your context window entirely focused on solving the hard problems.
-              </motion.p>
-            </div>
-            <div className="flex-1 flex justify-center w-full">
-              <motion.div variants={visualVariants} className="relative w-full max-w-sm bg-[#0d1117] text-white border border-neutral-800 rounded-2xl p-6 shadow-[0_0_50px_-12px_rgba(59,130,246,0.25)]">
-                <div className="flex items-center gap-2 mb-6 border-b border-neutral-800 pb-4">
-                  <div className="w-3 h-3 rounded-full bg-neutral-700"></div>
-                  <div className="w-3 h-3 rounded-full bg-neutral-700"></div>
-                  <div className="w-3 h-3 rounded-full bg-neutral-700"></div>
-                </div>
-                <code className="text-sm md:text-base font-mono block leading-relaxed">
-                  <span className="text-blue-400">{"// Output"}</span><br/>
-                  <span className="text-yellow-300">{"{"}</span><br/>
-                  &nbsp;&nbsp;<span className="text-blue-300">&quot;stack&quot;</span>: <span className="text-green-300">&quot;Next.js + Tailwind&quot;</span>,<br/>
-                  &nbsp;&nbsp;<span className="text-blue-300">&quot;optimization&quot;</span>: <span className="text-orange-300">&quot;100%&quot;</span>,<br/>
-                  &nbsp;&nbsp;<span className="text-blue-300">&quot;ready&quot;</span>: <span className="text-purple-400">true</span><br/>
-                  <span className="text-yellow-300">{"}"}</span>
-                </code>
-              </motion.div>
-            </div>
-          </motion.div>
+            {/* Right: result */}
+            <div className="flex flex-col bg-black/40">
+              <div className="flex items-center justify-between px-6 py-3.5 border-b border-white/[0.08]">
+                <span className="text-[13px] text-white/40">
+                  Your prompt{lines.length ? ` · ${wordCount} words` : ''}
+                </span>
+                <button
+                  type="button"
+                  onClick={copy}
+                  disabled={!lines.length}
+                  className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[13px] text-white/60 hover:text-white hover:bg-white/[0.08] disabled:opacity-30 disabled:hover:bg-transparent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                >
+                  {copied ? (
+                    <>
+                      <Check size={14} strokeWidth={2} /> Copied
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={14} strokeWidth={1.75} /> Copy
+                    </>
+                  )}
+                </button>
+              </div>
 
+              <div className="flex-1 p-6 font-mono text-[13px] leading-[1.9] min-h-[260px]">
+                {lines.length ? (
+                  lines.map((line, i) => (
+                    <p
+                      key={line}
+                      className={
+                        i === lines.length - 1
+                          ? 'text-white/35 mt-3'
+                          : 'text-white/85'
+                      }
+                    >
+                      {line}
+                    </p>
+                  ))
+                ) : (
+                  <p className="text-white/35 font-sans">
+                    Nothing picked yet. Choose a framework on the left and your
+                    prompt starts here.
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Who it helps — hairline row, not cards */}
+        <div className="mt-14 grid md:grid-cols-3 border-t border-white/[0.08]">
+          {[
+            {
+              head: 'Stop re-explaining yourself',
+              body: 'One paste at the top of a chat and the model stops guessing which version of the framework you are on.',
+            },
+            {
+              head: 'Keep a preset per project',
+              body: 'A client site, a side project and a work repo each get their own stack. Switch between them in a click.',
+            },
+            {
+              head: 'Share it with your team',
+              body: 'Send the same stack to everyone so the AI hands back code that matches the codebase you already have.',
+            },
+          ].map((item, i) => (
+            <div
+              key={item.head}
+              className={[
+                'py-7 md:px-7 border-white/[0.08]',
+                i === 0 ? 'md:pl-0' : 'border-t md:border-t-0 md:border-l',
+              ].join(' ')}
+            >
+              <h3 className="text-[15px] font-medium mb-2">{item.head}</h3>
+              <p className="text-[14px] text-white/50 font-light leading-relaxed">
+                {item.body}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

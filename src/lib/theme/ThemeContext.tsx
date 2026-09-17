@@ -19,7 +19,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Check saved theme or default to dark
+    // Check saved theme or default to system preference
     const savedTheme = localStorage.getItem("promptlab-theme");
     if (savedTheme !== null) {
       const isDark = savedTheme === "dark";
@@ -30,8 +30,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         document.documentElement.classList.remove("dark");
       }
     } else {
-      // Default to dark mode
-      document.documentElement.classList.add("dark");
+      // Default to system preference
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(systemPrefersDark);
+      if (systemPrefersDark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
     }
     setMounted(true);
   }, []);

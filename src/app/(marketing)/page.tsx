@@ -19,7 +19,7 @@ export default function CinematicHero() {
 
   return (
     <div className={`relative w-full font-sans ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}`}>
-      <main className="relative h-screen w-full overflow-hidden">
+      <main className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Background Video */}
       <video
         autoPlay
@@ -27,7 +27,7 @@ export default function CinematicHero() {
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover z-0"
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260406_094145_4a271a6c-3869-4f1c-8aa7-aeb0cb227994.mp4"
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260815_075403_bdde66c3-c5ad-41ac-ba8f-6a0bc4545c3f.mp4"
       />
 
       {/* Bottom Blur Overlay */}
