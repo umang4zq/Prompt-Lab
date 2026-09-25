@@ -203,7 +203,7 @@ function SlideModal({
 
 // --- Slide Content Components ---
 
-const Slide1 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+export const Slide1 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
   <SlideContainer
     bgColor={bgColor}
     accentColor={accentColor}
@@ -251,7 +251,7 @@ const Slide1 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
   </SlideContainer>
 );
 
-const Slide2 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+export const Slide2 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
   <SlideContainer
     bgColor={bgColor}
     accentColor={accentColor}
@@ -318,7 +318,7 @@ const Slide2 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
   </SlideContainer>
 );
 
-const Slide3 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+export const Slide3 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
   <SlideContainer
     bgColor={bgColor}
     accentColor={accentColor}
@@ -372,7 +372,7 @@ const Slide3 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
   </SlideContainer>
 );
 
-const Slide4 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+export const Slide4 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
   <SlideContainer
     bgColor={bgColor}
     accentColor={accentColor}
@@ -439,7 +439,7 @@ const Slide4 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
   </SlideContainer>
 );
 
-const Slide5 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+export const Slide5 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
   <SlideContainer
     bgColor={bgColor}
     accentColor={accentColor}
@@ -493,7 +493,7 @@ const Slide5 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
   </SlideContainer>
 );
 
-const Slide6 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+export const Slide6 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
   <SlideContainer
     bgColor={bgColor}
     accentColor={accentColor}
@@ -560,7 +560,7 @@ const Slide6 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
   </SlideContainer>
 );
 
-const Slide7 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+export const Slide7 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
   <SlideContainer
     bgColor={bgColor}
     accentColor={accentColor}
@@ -613,7 +613,7 @@ const Slide7 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
   </SlideContainer>
 );
 
-const Slide8 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+export const Slide8 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
   <SlideContainer
     bgColor={bgColor}
     accentColor={accentColor}
@@ -708,6 +708,16 @@ export default function AiSkillsPage() {
     <Slide8 key="8" bgColor={bgColor} accentColor="#34C759" />
   ];
 
+  const post5Slides = [
+    <Slide9 key="9" bgColor={bgColor} accentColor="#9C27B0" />,
+    <Slide10 key="10" bgColor={bgColor} accentColor="#9C27B0" />
+  ];
+
+  const post6Slides = [
+    <Slide11 key="11" bgColor={bgColor} accentColor="#10B981" />,
+    <Slide12 key="12" bgColor={bgColor} accentColor="#10B981" />
+  ];
+
   return (
     <div className="min-h-screen dark:bg-neutral-900 bg-gray-50 dark:text-white text-gray-900 flex flex-col transition-colors duration-200">
       <Navbar />
@@ -736,6 +746,14 @@ export default function AiSkillsPage() {
         <ThumbnailWrapper onClick={() => { setActiveSlides(post4Slides); setActiveSlideIndex(0); }}>
           {post4Slides[0]}
         </ThumbnailWrapper>
+
+        <ThumbnailWrapper onClick={() => { setActiveSlides(post5Slides); setActiveSlideIndex(0); }}>
+          {post5Slides[0]}
+        </ThumbnailWrapper>
+
+        <ThumbnailWrapper onClick={() => { setActiveSlides(post6Slides); setActiveSlideIndex(0); }}>
+          {post6Slides[0]}
+        </ThumbnailWrapper>
       </div>
 
       <SlideModal 
@@ -752,3 +770,329 @@ export default function AiSkillsPage() {
     </div>
   );
 }
+
+export const Slide9 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="PROJECT TEMPLATE / README.MD"
+    footerLeft={
+      <span className="flex items-center gap-2">
+        AI-OPTIMIZED <span style={{ color: accentColor }}>→</span> PROJECT CONTEXT
+      </span>
+    }
+    footerRight="01 / 02"
+  >
+    <h1 
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      THE ULTIMATE AI<br />
+      <span style={{ color: accentColor }}>README TEMPLATE</span>
+    </h1>
+    
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
+      Stop giving your AI assistants half-baked context. This perfectly structured README template is specifically designed to feed AI IDEs exactly what they need: architecture patterns, tech stack, data structure, and core workflows. Just copy-paste this when your project is complete, and your AI will instantly understand your entire codebase.
+    </p>
+
+    <div className="flex flex-col gap-3 w-full mt-auto">
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>AI Assistant Context Section:</strong> Directly tells the AI what framework, language, and architecture pattern you are using so it stops hallucinating wrong imports.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>Visual Database Mapping:</strong> Includes an ASCII folder and database structure so the agent knows exactly where everything is located without having to scan 500 files.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>Quick Start & Environments:</strong> Standardizes your setup instructions so humans and autonomous agents can spin up your project instantly.
+        </div>
+      </div>
+    </div>
+  </SlideContainer>
+);
+
+export const rawReadmeTemplate = `# 🚀 [Project Name]
+
+> [Short, catchy description of the project - e.g., AI-powered tax notice management system]
+
+A comprehensive description of what the platform/app/software does, who it's for, and the primary problem it solves. 
+
+---
+
+## 🤖 AI Assistant Context (For AI IDEs)
+
+*If you are an AI assistant analyzing this codebase, here is the essential context you need:*
+- **Software Type:** [e.g., Web Application, Mobile App, Desktop Software, API]
+- **Primary Framework:** [e.g., Next.js 14, Flutter, React, Express]
+- **Language:** [e.g., TypeScript, Dart, Python, Go]
+- **Architecture Pattern:** [e.g., App Router, Clean Architecture, MVC]
+- **Key Workflows:** 
+  - **[Workflow 1]:** [Explain how the core logic works]
+  - **[Workflow 2]:** [Explain another core feature]
+
+---
+
+## ✨ Features
+
+### 🎯 Core Feature 1
+- Sub-feature or technical detail
+- Sub-feature or technical detail
+
+### 🎯 Core Feature 2
+- Sub-feature or technical detail
+- Sub-feature or technical detail
+
+---
+
+## 🔧 Tech Stack
+
+### Frontend / Client
+- **Framework:** [e.g., Next.js, Flutter]
+- **Language:** [e.g., TypeScript, Dart]
+- **Styling:** [e.g., Tailwind CSS, Material Design]
+- **State Management:** [e.g., Zustand, Provider, Redux]
+
+### Backend / Server
+- **Database:** [e.g., Supabase PostgreSQL, Firebase Firestore, MongoDB]
+- **Auth:** [e.g., Supabase Auth, Firebase Auth, NextAuth]
+- **Storage:** [e.g., AWS S3, Firebase Storage]
+- **APIs & Integrations:** [e.g., Stripe, Gemini AI, SendGrid]
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- [e.g., Node.js 18+ and npm]
+- [e.g., Supabase account / Firebase project]
+- [e.g., Specific API Keys]
+
+### 1. Clone and Install
+
+\`\`\`bash
+# Clone the repository
+git clone <your-repo-url>
+cd <project-folder>
+
+# Install dependencies
+npm install  # or flutter pub get, pip install -r requirements.txt, etc.
+\`\`\`
+
+### 2. Environment Setup
+
+Copy the example environment file and add your keys:
+
+\`\`\`bash
+cp .env.example .env.local
+\`\`\`
+
+**Required environment variables:**
+- \`API_KEY_1\` - Description
+- \`DATABASE_URL\` - Description
+
+### 3. Run Development Server
+
+\`\`\`bash
+# Start the local server
+npm run dev # or flutter run
+\`\`\`
+
+---
+
+## 🗄️ Database Structure / Architecture
+
+*Provide a visual or text representation of how the data is structured to help AIs and developers understand relationships quickly.*
+
+\`\`\`text
+users (table/collection)
+ ├── id: uuid (PK)
+ ├── name: string
+ └── posts (subcollection/relation)
+      ├── id: uuid
+      ├── title: string
+      └── content: text
+\`\`\`
+
+---
+
+## 📁 Project Structure
+
+\`\`\`text
+/root/
+├── src/
+│   ├── app/                    # Main routing / entry points
+│   ├── components/             # Reusable UI components
+│   ├── lib/                    # Utilities & external client configs
+│   └── api/                    # Backend API routes / services
+├── database/                   # SQL migrations & schemas / Firebase rules
+├── docs/                       # Documentation
+└── public/                     # Static assets (images, icons)
+\`\`\`
+
+---
+
+## 🤝 Contributing
+
+1. Create a feature branch (\`git checkout -b feature/amazing-feature\`)
+2. Commit your changes (\`git commit -m 'Add some amazing feature'\`)
+3. Push to the branch (\`git push origin feature/amazing-feature\`)
+4. Open a Pull Request
+
+---
+
+## 📄 License
+
+Proprietary - All rights reserved. 
+Copyright © [Year] [Your Company/Name].`;
+
+export const Slide10 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="RAW MARKDOWN / COPY & PASTE"
+    footerLeft={
+      <span className="flex items-center gap-2">
+        AI-OPTIMIZED <span style={{ color: accentColor }}>→</span> PROJECT CONTEXT
+      </span>
+    }
+    footerRight="02 / 02"
+  >
+    <div className="relative flex flex-col flex-grow h-full bg-black/5 dark:bg-black/20 rounded-xl overflow-hidden border border-black/10 dark:border-white/10 p-4">
+      {/* Inline Copy Button */}
+      <button 
+        onClick={(e) => {
+          e.stopPropagation();
+          navigator.clipboard.writeText(rawReadmeTemplate);
+          alert("README copied to clipboard!");
+        }}
+        className="absolute top-4 right-4 z-10 flex items-center gap-1.5 bg-black text-white dark:bg-white dark:text-black rounded-lg px-4 py-2 text-sm font-semibold shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
+      >
+        <Terminal size={14} /> COPY README
+      </button>
+
+      <h3 className="text-sm font-bold mb-4 uppercase tracking-widest opacity-50">README.md</h3>
+      
+      <div className="flex-grow overflow-y-auto hidden-scrollbar pr-2 relative">
+        <pre className="text-[10px] sm:text-xs font-mono leading-relaxed whitespace-pre-wrap break-words opacity-80" style={{ fontFamily: "monospace" }}>
+          {rawReadmeTemplate}
+        </pre>
+      </div>
+    </div>
+  </SlideContainer>
+);
+
+export const Slide11 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="UPSTASH / CONTEXT7"
+    footerLeft={
+      <span className="flex items-center gap-2">
+        AI-OPTIMIZED <span style={{ color: accentColor }}>→</span> MCP SERVER
+      </span>
+    }
+    footerRight="01 / 02"
+  >
+    <h1 
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      NEVER HALLUCINATE<br />
+      <span style={{ color: accentColor }}>OUTDATED CODE AGAIN.</span>
+    </h1>
+    
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
+      Tired of Cursor or Claude generating code using deprecated Next.js or React APIs? Context7 by Upstash is an MCP server that directly injects verified, version-specific, and real-time live documentation straight into your AI's context.
+    </p>
+
+    <div className="flex flex-col gap-3 w-full mt-auto">
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>Live MCP Integration:</strong> Hooks directly into Claude Desktop, Cursor, or Windsurf via the Model Context Protocol.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>Version Specific Docs:</strong> Just tell your AI "Use context7 for Next.js 14" and it instantly pulls the exact documentation needed.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>No More Generic Code:</strong> AI models finally have the exact context required to build modern, hyper-specific tools without guessing.
+        </div>
+      </div>
+    </div>
+  </SlideContainer>
+);
+
+export const rawContext7Config = `{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    }
+  }
+}`;
+
+export const Slide12 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="HOW TO USE / CONTEXT7 MCP"
+    footerLeft={
+      <span className="flex items-center gap-2">
+        AI-OPTIMIZED <span style={{ color: accentColor }}>→</span> MCP SERVER
+      </span>
+    }
+    footerRight="02 / 02"
+  >
+    <h1 
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      HOW TO INSTALL<br />
+      <span style={{ color: accentColor }}>CONTEXT7 MCP</span>
+    </h1>
+
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
+      Simply add this configuration to your MCP settings file (like <code>cline_mcp_settings.json</code> for VSCode or the Cursor MCP menu).
+    </p>
+
+    <div className="relative flex flex-col flex-grow h-full bg-black/5 dark:bg-black/20 rounded-xl overflow-hidden border border-black/10 dark:border-white/10 p-4">
+      {/* Inline Copy Button */}
+      <button 
+        onClick={(e) => {
+          e.stopPropagation();
+          navigator.clipboard.writeText(rawContext7Config);
+          alert("MCP Config copied to clipboard!");
+        }}
+        className="absolute top-4 right-4 z-10 flex items-center gap-1.5 bg-black text-white dark:bg-white dark:text-black rounded-lg px-4 py-2 text-sm font-semibold shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
+      >
+        <Terminal size={14} /> COPY CONFIG
+      </button>
+
+      <h3 className="text-sm font-bold mb-4 uppercase tracking-widest opacity-50">mcp_settings.json</h3>
+      
+      <div className="flex-grow overflow-y-auto hidden-scrollbar pr-2 relative">
+        <pre className="text-[10px] sm:text-xs font-mono leading-relaxed whitespace-pre-wrap break-words opacity-80" style={{ fontFamily: "monospace" }}>
+          {rawContext7Config}
+        </pre>
+      </div>
+    </div>
+    
+    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60">
+      Or use the CLI: <code>npx ctx7 setup</code><br/>
+      repository URL: <a href="https://github.com/upstash/context7" target="_blank" className="hover:underline font-bold text-black break-all">https://github.com/upstash/context7</a>
+    </div>
+  </SlideContainer>
+);
