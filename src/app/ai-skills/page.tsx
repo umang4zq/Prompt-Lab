@@ -161,7 +161,7 @@ function SlideModal({
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 20 }}
             transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-            className="relative w-full flex-grow min-h-0 sm:flex-none sm:h-auto sm:aspect-[3/4] flex flex-col rounded-sm shadow-2xl overflow-y-auto hidden-scrollbar bg-neutral-900"
+            className="relative w-full flex-grow min-h-0 sm:flex-none sm:h-auto sm:aspect-[3/4] flex flex-col rounded-sm shadow-2xl overflow-y-auto hidden-scrollbar dark:bg-neutral-900 bg-white"
             style={{ maxWidth: '600px', maxHeight: '85vh' }}
             onClick={(e) => e.stopPropagation()}
             drag="x"
@@ -680,6 +680,8 @@ const Slide8 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string
   </SlideContainer>
 );
 
+import Navbar from "../../components/hero/Navbar";
+
 export default function AiSkillsPage() {
   const [accentColor, setAccentColor] = useState("#2F50FD");
   const [bgColor, setBgColor] = useState("#F7F5EC");
@@ -707,11 +709,13 @@ export default function AiSkillsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-900 px-2 py-12 sm:p-8 flex flex-col items-center gap-8 sm:gap-16 sm:py-24">
+    <div className="min-h-screen dark:bg-neutral-900 bg-gray-50 dark:text-white text-gray-900 flex flex-col transition-colors duration-200">
+      <Navbar />
+      <div className="px-2 py-12 sm:p-8 flex flex-col items-center gap-8 sm:gap-16 sm:py-24">
       
       <div className="text-center mb-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">AI Skills Showcase</h1>
-        <p className="text-neutral-400 max-w-2xl mx-auto text-lg mb-8">
+        <h1 className="text-4xl md:text-5xl font-bold dark:text-white text-gray-900 mb-6 tracking-tight">AI Skills Showcase</h1>
+        <p className="dark:text-neutral-400 text-gray-600 max-w-2xl mx-auto text-lg mb-8">
           Explore powerful AI skills and prompt structures designed to supercharge your workflow.
         </p>
       </div>
@@ -744,6 +748,7 @@ export default function AiSkillsPage() {
       >
         {activeSlideIndex !== null && activeSlides[activeSlideIndex]}
       </SlideModal>
+      </div>
     </div>
   );
 }

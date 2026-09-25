@@ -7,6 +7,8 @@ import CopyButton from "../../components/gallery/CopyButton";
 import { Toaster } from "sonner";
 import { useEffect, useState } from "react";
 
+import Navbar from "../../components/hero/Navbar";
+
 export default function GalleryPage() {
   const [compositions, setCompositions] = useState<{ id: string; title: string; created_at: string; edited_prompt?: string; generated_prompt?: string; }[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,10 +22,12 @@ export default function GalleryPage() {
   }, []);
 
   return (
-    <div className="min-h-screen dark:bg-black bg-gray-50 dark:text-white text-gray-900 flex flex-col items-center p-6 relative overflow-y-auto transition-colors duration-200">
-      <Toaster theme="dark" position="bottom-right" />
-      {/* Background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#22D3B8]/10 blur-[120px] rounded-full pointer-events-none" />
+    <div className="min-h-screen dark:bg-black bg-gray-50 dark:text-white text-gray-900 flex flex-col relative overflow-y-auto transition-colors duration-200">
+      <Navbar />
+      <div className="flex flex-col items-center p-6 w-full">
+        <Toaster theme="dark" position="bottom-right" />
+        {/* Background glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#22D3B8]/10 blur-[120px] rounded-full pointer-events-none" />
       
       <div className="relative z-10 w-full max-w-6xl pt-24 pb-12 animate-blur-fade-up">
         <div className="text-center mb-16">
@@ -114,6 +118,7 @@ export default function GalleryPage() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

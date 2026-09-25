@@ -96,7 +96,7 @@ export default function WhyPromptLab() {
   };
 
   return (
-    <section className="relative z-10 py-24 px-6 border-t border-white/[0.08] bg-black/20 backdrop-blur-3xl text-white">
+    <section className="relative z-10 py-24 px-6 border-t dark:border-white/[0.08] border-gray-200 dark:bg-black/20 bg-gray-50/50 backdrop-blur-3xl dark:text-white text-gray-900 transition-colors duration-200">
       <div className="max-w-5xl mx-auto">
         {/* Header — left aligned, no centred stack */}
         <motion.div
@@ -111,7 +111,7 @@ export default function WhyPromptLab() {
             <br />
             Paste it into any AI.
           </h2>
-          <p className="text-[17px] text-white/55 font-light leading-relaxed">
+          <p className="text-[17px] dark:text-white/55 text-gray-600 font-light leading-relaxed">
             Every new chat starts with you retyping the same setup — framework,
             styling, database, the rules you always forget to mention.
             Prompt-Lab turns that into one block you keep. Pick what you build
@@ -125,33 +125,35 @@ export default function WhyPromptLab() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="rounded-2xl border border-white/[0.1] bg-black/30 backdrop-blur-xl overflow-hidden"
+          className="rounded-2xl border dark:border-white/[0.1] border-gray-200 dark:bg-black/30 bg-white/70 backdrop-blur-xl overflow-hidden shadow-sm"
         >
           <div className="grid md:grid-cols-[1.1fr_1fr]">
             {/* Left: pick */}
-            <div className="p-7 lg:p-9 md:border-r border-white/[0.08]">
+            <div className="p-7 lg:p-9 md:border-r dark:border-white/[0.08] border-gray-200">
               <div className="flex flex-col gap-7">
                 {GROUPS.map((group) => (
                   <div key={group.key}>
-                    <div className="text-[13px] text-white/40 mb-3">
+                    <div className="text-[13px] dark:text-white/40 text-gray-500 mb-3 font-medium">
                       {group.label}
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {group.options.map((opt) => {
                         const on = selected.includes(opt.id);
                         return (
-                          <button
+                          <motion.button
                             key={opt.id}
                             type="button"
                             onClick={() => toggle(opt.id)}
                             aria-pressed={on}
+                            whileHover={!reduceMotion ? { scale: 1.03 } : {}}
+                            whileTap={!reduceMotion ? { scale: 0.97 } : {}}
                             className={[
                               'group inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[13px]',
-                              'border transition-colors duration-200',
-                              'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black',
+                              'border transition-colors duration-200 font-medium',
+                              'focus:outline-none focus-visible:ring-2 dark:focus-visible:ring-white/60 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-black focus-visible:ring-offset-white',
                               on
-                                ? 'bg-white/[0.12] border-white/25 text-white'
-                                : 'bg-transparent border-white/[0.12] text-white/45 hover:text-white/80 hover:border-white/25',
+                                ? 'dark:bg-white/[0.12] bg-gray-200 dark:border-white/25 border-gray-300 dark:text-white text-gray-900 shadow-sm'
+                                : 'bg-transparent dark:border-white/[0.12] border-gray-200 dark:text-white/45 text-gray-500 dark:hover:text-white/80 hover:text-gray-800 dark:hover:border-white/25 hover:border-gray-300',
                             ].join(' ')}
                           >
                             <span
@@ -162,7 +164,7 @@ export default function WhyPromptLab() {
                               }}
                             />
                             {opt.name}
-                          </button>
+                          </motion.button>
                         );
                       })}
                     </div>
@@ -172,16 +174,16 @@ export default function WhyPromptLab() {
             </div>
 
             {/* Right: result */}
-            <div className="flex flex-col bg-black/40">
-              <div className="flex items-center justify-between px-6 py-3.5 border-b border-white/[0.08]">
-                <span className="text-[13px] text-white/40">
+            <div className="flex flex-col dark:bg-black/40 bg-gray-50/80">
+              <div className="flex items-center justify-between px-6 py-3.5 border-b dark:border-white/[0.08] border-gray-200">
+                <span className="text-[13px] dark:text-white/40 text-gray-500 font-medium">
                   Your prompt{lines.length ? ` · ${wordCount} words` : ''}
                 </span>
                 <button
                   type="button"
                   onClick={copy}
                   disabled={!lines.length}
-                  className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[13px] text-white/60 hover:text-white hover:bg-white/[0.08] disabled:opacity-30 disabled:hover:bg-transparent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[13px] dark:text-white/60 text-gray-500 dark:hover:text-white hover:text-gray-900 dark:hover:bg-white/[0.08] hover:bg-gray-200 disabled:opacity-30 disabled:hover:bg-transparent transition-colors focus:outline-none focus-visible:ring-2 dark:focus-visible:ring-white/60 focus-visible:ring-gray-400 font-medium"
                 >
                   {copied ? (
                     <>
@@ -198,22 +200,29 @@ export default function WhyPromptLab() {
               <div className="flex-1 p-6 font-mono text-[13px] leading-[1.9] min-h-[260px]">
                 {lines.length ? (
                   lines.map((line, i) => (
-                    <p
+                    <motion.p
                       key={line}
+                      initial={reduceMotion ? false : { opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: i * 0.05 }}
                       className={
                         i === lines.length - 1
-                          ? 'text-white/35 mt-3'
-                          : 'text-white/85'
+                          ? 'dark:text-white/35 text-gray-400 mt-3'
+                          : 'dark:text-white/85 text-gray-800'
                       }
                     >
                       {line}
-                    </p>
+                    </motion.p>
                   ))
                 ) : (
-                  <p className="text-white/35 font-sans">
+                  <motion.p
+                    initial={reduceMotion ? false : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="dark:text-white/35 text-gray-400 font-sans"
+                  >
                     Nothing picked yet. Choose a framework on the left and your
                     prompt starts here.
-                  </p>
+                  </motion.p>
                 )}
               </div>
             </div>
@@ -221,7 +230,7 @@ export default function WhyPromptLab() {
         </motion.div>
 
         {/* Who it helps — hairline row, not cards */}
-        <div className="mt-14 grid md:grid-cols-3 border-t border-white/[0.08]">
+        <div className="mt-14 grid md:grid-cols-3 border-t dark:border-white/[0.08] border-gray-200">
           {[
             {
               head: 'Stop re-explaining yourself',
@@ -239,12 +248,12 @@ export default function WhyPromptLab() {
             <div
               key={item.head}
               className={[
-                'py-7 md:px-7 border-white/[0.08]',
+                'py-7 md:px-7 dark:border-white/[0.08] border-gray-200',
                 i === 0 ? 'md:pl-0' : 'border-t md:border-t-0 md:border-l',
               ].join(' ')}
             >
               <h3 className="text-[15px] font-medium mb-2">{item.head}</h3>
-              <p className="text-[14px] text-white/50 font-light leading-relaxed">
+              <p className="text-[14px] dark:text-white/50 text-gray-600 font-light leading-relaxed">
                 {item.body}
               </p>
             </div>

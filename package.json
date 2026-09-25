@@ -2,6 +2,7 @@
   "name": "prompt-lab",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev:vite": "vite",
     "dev:next": "next dev",
