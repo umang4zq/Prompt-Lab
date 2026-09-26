@@ -55,7 +55,7 @@ export default function WhyPromptLab() {
   const [copied, setCopied] = useState(false);
   const reduceMotion = useReducedMotion();
 
-  const toggle = (id) => {
+  const toggle = (id: string) => {
     setCopied(false);
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]

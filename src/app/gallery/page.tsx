@@ -22,102 +22,134 @@ export default function GalleryPage() {
   }, []);
 
   return (
-    <div className="min-h-screen dark:bg-black bg-gray-50 dark:text-white text-gray-900 flex flex-col relative overflow-y-auto transition-colors duration-200">
-      <Navbar />
-      <div className="flex flex-col items-center p-6 w-full">
-        <Toaster theme="dark" position="bottom-right" />
-        {/* Background glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#22D3B8]/10 blur-[120px] rounded-full pointer-events-none" />
+    <div className="min-h-screen dark:bg-black bg-[#f8f9fa] dark:text-white text-gray-900 flex flex-col relative overflow-y-auto transition-colors duration-300 font-sans selection:bg-black/10 dark:selection:bg-white/20">
       
-      <div className="relative z-10 w-full max-w-6xl pt-24 pb-12 animate-blur-fade-up">
-        <div className="text-center mb-16">
-          <div className="w-16 h-16 dark:bg-white/5 bg-black/5 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] border dark:border-white/10 border-black/10">
-            <LayoutGrid size={32} className="text-[#22D3B8]" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight dark:text-white text-gray-900">Community Gallery</h1>
-          <p className="dark:text-gray-400 text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-            Discover incredible prompt compositions built by our users.
-          </p>
-          <div className="mt-8">
-            <Link 
-              href="/"
-              className="inline-flex items-center gap-2 dark:bg-white/10 bg-black/10 dark:hover:bg-white/20 hover:bg-black/20 dark:text-white text-gray-900 px-6 py-3 rounded-full font-medium transition-colors"
-            >
-              <ArrowLeft size={18} />
-              Return Home
-            </Link>
-          </div>
-        </div>
-
-        {loading ? (
-          <div className="flex justify-center items-center py-24">
-            <div className="w-8 h-8 border-2 border-[#22D3B8] border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-            {compositions.map((comp) => (
-              <div key={comp.id} className="dark:bg-white/5 bg-white p-6 rounded-2xl border dark:border-white/10 border-gray-200 dark:hover:border-white/20 hover:border-gray-300 shadow-sm transition-all flex flex-col cursor-pointer" onClick={() => setSelectedPrompt(comp)}>
-                <h3 className="font-semibold dark:text-white text-gray-900 mb-2 text-lg truncate">{comp.title}</h3>
-                <p className="text-xs text-gray-500 mb-4 font-mono">{new Date(comp.created_at).toLocaleDateString()}</p>
-                <div className="flex-1 dark:bg-black/40 bg-gray-100 rounded-xl p-4 overflow-hidden relative">
-                  <p className="text-sm dark:text-gray-400 text-gray-700 font-mono line-clamp-6 leading-relaxed">
-                    {comp.edited_prompt || comp.generated_prompt}
-                  </p>
-                  <div className="absolute inset-x-0 bottom-0 h-12 dark:bg-gradient-to-t dark:from-black/90 dark:to-transparent bg-gradient-to-t from-gray-100/90 to-transparent pointer-events-none" />
-                </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <Link href={`/build?fork=${comp.id}`} className="text-sm font-medium text-[#22D3B8] hover:underline" onClick={e => e.stopPropagation()}>
-                    Fork Prompt &rarr;
-                  </Link>
-                  <div onClick={e => e.stopPropagation()}>
-                    <CopyButton text={comp.edited_prompt || comp.generated_prompt || ""} />
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {compositions.length === 0 && (
-              <div className="col-span-full text-center text-gray-500 py-12">
-                No public compositions yet. Be the first to publish one!
-              </div>
-            )}
-          </div>
-        )}
+      {/* Abstract Background Elements */}
+      <div className="fixed inset-0 z-0 flex justify-center pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] w-[600px] sm:w-[800px] h-[500px] rounded-full bg-black/5 dark:bg-white/5 blur-[120px]" />
+        <div className="absolute bottom-[-10%] w-[400px] sm:w-[600px] h-[600px] rounded-full bg-black/5 dark:bg-white/5 blur-[120px]" />
       </div>
 
-      {/* Read-Only Modal */}
-      {selectedPrompt && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onClick={() => setSelectedPrompt(null)}>
-          <div 
-            className="dark:bg-[#0a0a0a] bg-white border dark:border-white/10 border-gray-200 rounded-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl"
-            onClick={e => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between p-6 border-b dark:border-white/10 border-gray-200">
-              <div>
-                <h2 className="text-2xl font-bold dark:text-white text-gray-900">{selectedPrompt.title}</h2>
-                <p className="text-sm text-gray-500 font-mono mt-1">{new Date(selectedPrompt.created_at).toLocaleDateString()}</p>
-              </div>
-              <button 
-                onClick={() => setSelectedPrompt(null)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors"
+      <div className="relative z-20">
+        <Navbar />
+      </div>
+      
+      <div className="relative z-10 flex flex-col items-center p-4 sm:p-6 w-full">
+        <Toaster theme="dark" position="bottom-right" />
+      
+        <div className="w-full max-w-7xl pt-16 sm:pt-24 pb-12 animate-blur-fade-up" style={{ animationDuration: '800ms' }}>
+          
+          {/* Header Section */}
+          <div className="text-center mb-16 sm:mb-24 relative">
+            <div className="inline-flex items-center justify-center p-5 rounded-3xl bg-white/40 dark:bg-white/5 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-2xl mb-8 transform transition-transform hover:scale-105">
+              <LayoutGrid size={32} className="text-black/80 dark:text-white/90" />
+            </div>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-normal tracking-[-0.03em] mb-6 dark:text-white text-black drop-shadow-sm">
+              Community Gallery
+            </h1>
+            <p className="text-lg md:text-xl dark:text-gray-400 text-gray-600 max-w-2xl mx-auto leading-relaxed font-light">
+              Discover incredible prompt compositions built by our users.
+            </p>
+            <div className="mt-10">
+              <Link 
+                href="/"
+                className="inline-flex items-center gap-2 dark:bg-white/10 bg-black/5 dark:hover:bg-white/20 hover:bg-black/10 dark:text-white text-black px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-md"
               >
-                ✕
-              </button>
-            </div>
-            <div className="flex-1 overflow-y-auto p-6 dark:bg-black/50 bg-gray-50">
-              <pre className="text-sm dark:text-gray-300 text-gray-800 font-mono whitespace-pre-wrap leading-relaxed">
-                {selectedPrompt.edited_prompt || selectedPrompt.generated_prompt}
-              </pre>
-            </div>
-            <div className="flex items-center justify-between p-6 border-t dark:border-white/10 border-gray-200 dark:bg-[#0a0a0a] bg-white">
-              <Link href={`/build?fork=${selectedPrompt.id}`} className="text-sm font-medium text-[#22D3B8] hover:underline flex items-center gap-2">
-                Fork this Prompt &rarr;
+                <ArrowLeft size={18} />
+                Return Home
               </Link>
-              <CopyButton text={selectedPrompt.edited_prompt || selectedPrompt.generated_prompt || ""} />
             </div>
           </div>
+
+          {loading ? (
+            <div className="flex justify-center items-center py-32">
+              <div className="w-10 h-10 border-2 border-black/20 dark:border-white/20 border-t-black dark:border-t-white rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full px-2 sm:px-0">
+              {compositions.map((comp, idx) => (
+                <div 
+                  key={comp.id} 
+                  className="group relative bg-white/50 dark:bg-white/5 backdrop-blur-xl p-6 sm:p-8 rounded-[2rem] border border-black/5 dark:border-white/10 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col cursor-pointer overflow-hidden animate-blur-fade-up" 
+                  style={{ animationDelay: `${idx * 50}ms`, animationFillMode: 'both' }}
+                  onClick={() => setSelectedPrompt(comp)}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/0 to-black/5 dark:from-white/0 dark:to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  
+                  <h3 className="relative z-10 font-medium dark:text-white text-black mb-2 text-xl truncate tracking-wide">{comp.title}</h3>
+                  <p className="relative z-10 text-xs text-black/40 dark:text-white/40 mb-6 font-mono tracking-wider uppercase">{new Date(comp.created_at).toLocaleDateString()}</p>
+                  
+                  <div className="relative z-10 flex-1 dark:bg-black/40 bg-black/5 rounded-2xl p-5 overflow-hidden border border-black/5 dark:border-white/5 group-hover:border-black/10 dark:group-hover:border-white/10 transition-colors">
+                    <p className="text-sm dark:text-gray-300 text-gray-700 font-mono line-clamp-6 leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity">
+                      {comp.edited_prompt || comp.generated_prompt}
+                    </p>
+                    <div className="absolute inset-x-0 bottom-0 h-16 dark:bg-gradient-to-t dark:from-[#0a0a0a] dark:to-transparent bg-gradient-to-t from-[#f1f2f3] to-transparent pointer-events-none" />
+                  </div>
+                  
+                  <div className="relative z-10 mt-6 flex items-center justify-between">
+                    <Link href={`/build?fork=${comp.id}`} className="text-sm font-medium dark:text-white text-black opacity-60 hover:opacity-100 transition-opacity flex items-center gap-1" onClick={e => e.stopPropagation()}>
+                      Fork Prompt <span className="text-lg leading-none ml-1">&rarr;</span>
+                    </Link>
+                    <div onClick={e => e.stopPropagation()} className="dark:bg-white/10 bg-black/5 rounded-full p-2 hover:bg-black/10 dark:hover:bg-white/20 transition-colors">
+                      <CopyButton text={comp.edited_prompt || comp.generated_prompt || ""} />
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {compositions.length === 0 && (
+                <div className="col-span-full flex flex-col items-center justify-center text-black/50 dark:text-white/50 py-24 bg-white/20 dark:bg-white/5 rounded-[3rem] backdrop-blur-md border border-black/5 dark:border-white/5">
+                  <LayoutGrid size={48} className="mb-4 opacity-20" />
+                  <p className="text-xl font-light">No public compositions yet.</p>
+                  <p className="text-sm mt-2 opacity-60">Be the first to publish one!</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-      )}
+
+        {/* Cinematic Modal */}
+        {selectedPrompt && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/40 dark:bg-black/60 backdrop-blur-md transition-all duration-300" onClick={() => setSelectedPrompt(null)}>
+            <div 
+              className="relative w-full max-w-4xl max-h-[90vh] flex flex-col bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden animate-blur-fade-up"
+              style={{ animationDuration: "400ms" }}
+              onClick={e => e.stopPropagation()}
+            >
+              
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-6 sm:p-8 border-b border-black/5 dark:border-white/5">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-medium dark:text-white text-black tracking-tight">{selectedPrompt.title}</h2>
+                  <p className="text-sm text-black/40 dark:text-white/40 font-mono mt-2 tracking-wider uppercase">{new Date(selectedPrompt.created_at).toLocaleDateString()}</p>
+                </div>
+                <button 
+                  onClick={() => setSelectedPrompt(null)}
+                  className="w-12 h-12 flex items-center justify-center rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors text-black dark:text-white"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Modal Body */}
+              <div className="flex-1 overflow-y-auto p-6 sm:p-8 dark:bg-black/30 bg-black/5 custom-scrollbar">
+                <pre className="text-sm sm:text-base dark:text-gray-300 text-gray-700 font-mono whitespace-pre-wrap leading-relaxed">
+                  {selectedPrompt.edited_prompt || selectedPrompt.generated_prompt}
+                </pre>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-6 sm:p-8 border-t border-black/5 dark:border-white/5 bg-white/50 dark:bg-black/50">
+                <Link href={`/build?fork=${selectedPrompt.id}`} className="w-full sm:w-auto px-8 py-4 rounded-full dark:bg-white bg-black dark:text-black text-white font-medium hover:scale-105 transition-transform flex items-center justify-center gap-2 shadow-lg">
+                  Fork this Prompt <span className="text-lg leading-none">&rarr;</span>
+                </Link>
+                <div className="p-3 rounded-full dark:bg-white/10 bg-black/5 hover:bg-black/10 dark:hover:bg-white/20 transition-colors cursor-pointer w-full sm:w-auto flex justify-center">
+                   <CopyButton text={selectedPrompt.edited_prompt || selectedPrompt.generated_prompt || ""} />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -171,79 +171,78 @@ function BuildPageContent() {
       <Toaster theme="dark" position="bottom-right" />
       <Navbar />
       
-      <main className="flex-1 overflow-visible lg:overflow-hidden flex flex-col lg:flex-row gap-6 px-4 sm:px-6 md:px-12 pb-6 max-w-[1920px] mx-auto w-full">
+      <main className="flex-1 overflow-visible lg:overflow-hidden flex flex-col lg:flex-row gap-6 px-4 sm:px-6 md:px-12 pb-6 max-w-[1920px] mx-auto w-full relative z-0">
         
         {/* Mobile Header / Overrides */}
-        {showOverrideWarning && (
-          <div className="absolute top-20 left-1/2 -translate-x-1/2 z-50 dark:bg-brand-teal/20 bg-brand-teal/10 border border-brand-teal dark:text-white text-black px-4 py-3 rounded-xl flex items-center gap-4 shadow-2xl backdrop-blur-md animate-blur-fade-up">
-            <span className="text-sm">{BUILD_CONTENT.promptOverrideWarning}</span>
-            <div className="flex gap-2">
-              <button onClick={() => handleOverrideDecision(true)} className="text-xs bg-brand-teal px-3 py-1.5 rounded-md font-medium dark:text-white text-white hover:bg-brand-teal/80">
-                {BUILD_CONTENT.promptOverrideUpdate}
-              </button>
-              <button onClick={() => handleOverrideDecision(false)} className="text-xs dark:bg-white/10 bg-black/10 px-3 py-1.5 rounded-md font-medium dark:hover:bg-white/20 hover:bg-black/20">
-                {BUILD_CONTENT.promptOverrideKeep}
+            {showOverrideWarning && (
+              <div className="absolute top-20 left-1/2 -translate-x-1/2 z-50 dark:bg-brand-teal/20 bg-brand-teal/10 border border-brand-teal dark:text-white text-black px-4 py-3 rounded-xl flex items-center gap-4 shadow-2xl backdrop-blur-md animate-blur-fade-up">
+                <span className="text-sm">{BUILD_CONTENT.promptOverrideWarning}</span>
+                <div className="flex gap-2">
+                  <button onClick={() => handleOverrideDecision(true)} className="text-xs bg-brand-teal px-3 py-1.5 rounded-md font-medium dark:text-white text-white hover:bg-brand-teal/80">
+                    {BUILD_CONTENT.promptOverrideUpdate}
+                  </button>
+                  <button onClick={() => handleOverrideDecision(false)} className="text-xs dark:bg-white/10 bg-black/10 px-3 py-1.5 rounded-md font-medium dark:hover:bg-white/20 hover:bg-black/20">
+                    {BUILD_CONTENT.promptOverrideKeep}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Sidebar */}
+            <aside className="w-full lg:w-[200px] flex-shrink-0 lg:h-full lg:overflow-y-auto animate-blur-fade-up opacity-0" style={{ animationDelay: "150ms" }}>
+              <CategorySidebar 
+                categories={categories} 
+                selections={selections}
+                activeCategorySlug={activeCategorySlug}
+              />
+            </aside>
+
+            {/* Pill Grid */}
+            <div className="flex-1 lg:h-full lg:overflow-hidden animate-blur-fade-up opacity-0" style={{ animationDelay: "200ms" }}>
+              <PillGrid 
+                categories={categories}
+                pills={pills}
+                selections={selections}
+                onToggle={handleToggle}
+                customExtras={customExtras}
+                onCustomExtrasChange={setCustomExtras}
+              />
+            </div>
+
+            {/* Live Preview */}
+            <div className={`
+              fixed lg:static inset-0 z-40 lg:z-auto dark:bg-black/90 bg-white/90 lg:bg-transparent lg:dark:bg-transparent backdrop-blur-xl lg:backdrop-blur-none transition-transform duration-300
+              ${previewOpen ? 'translate-y-0' : 'translate-y-full lg:translate-y-0'}
+              flex flex-col lg:w-[420px] flex-shrink-0 lg:h-full pt-20 lg:pt-0 px-4 lg:px-0
+            `}>
+              <div className="flex-1 animate-blur-fade-up opacity-0" style={{ animationDelay: "250ms" }}>
+                <PromptPreview 
+                  title={title}
+                  onTitleChange={setTitle}
+                  generatedPrompt={generatedPrompt}
+                  editedPrompt={editedPrompt}
+                  onEditedPromptChange={setEditedPrompt}
+                  onReset={() => setEditedPrompt(null)}
+                  onSave={handleSave}
+                />
+              </div>
+              
+              {/* Mobile close button */}
+              <button 
+                onClick={() => setPreviewOpen(false)}
+                className="lg:hidden mt-4 dark:bg-white/10 bg-black/10 py-3 rounded-xl text-sm font-medium dark:hover:bg-white/20 hover:bg-black/20"
+              >
+                Close Preview
               </button>
             </div>
-          </div>
-        )}
 
-        {/* Sidebar */}
-        <aside className="w-full lg:w-[200px] flex-shrink-0 lg:h-full lg:overflow-y-auto animate-blur-fade-up opacity-0" style={{ animationDelay: "150ms" }}>
-          <CategorySidebar 
-            categories={categories} 
-            selections={selections}
-            activeCategorySlug={activeCategorySlug}
-          />
-        </aside>
-
-        {/* Pill Grid */}
-        <div className="flex-1 lg:h-full lg:overflow-hidden animate-blur-fade-up opacity-0" style={{ animationDelay: "200ms" }}>
-          <PillGrid 
-            categories={categories}
-            pills={pills}
-            selections={selections}
-            onToggle={handleToggle}
-            customExtras={customExtras}
-            onCustomExtrasChange={setCustomExtras}
-          />
-        </div>
-
-        {/* Live Preview (Desktop is right column, Mobile is floating button + sheet) */}
-        <div className={`
-          fixed lg:static inset-0 z-40 lg:z-auto dark:bg-black/90 bg-white/90 lg:bg-transparent lg:dark:bg-transparent backdrop-blur-xl lg:backdrop-blur-none transition-transform duration-300
-          ${previewOpen ? 'translate-y-0' : 'translate-y-full lg:translate-y-0'}
-          flex flex-col lg:w-[420px] flex-shrink-0 lg:h-full pt-20 lg:pt-0 px-4 lg:px-0
-        `}>
-          <div className="flex-1 animate-blur-fade-up opacity-0" style={{ animationDelay: "250ms" }}>
-            <PromptPreview 
-              title={title}
-              onTitleChange={setTitle}
-              generatedPrompt={generatedPrompt}
-              editedPrompt={editedPrompt}
-              onEditedPromptChange={setEditedPrompt}
-              onReset={() => setEditedPrompt(null)}
-              onSave={handleSave}
-            />
-          </div>
-          
-          {/* Mobile close button */}
-          <button 
-            onClick={() => setPreviewOpen(false)}
-            className="lg:hidden mt-4 dark:bg-white/10 bg-black/10 py-3 rounded-xl text-sm font-medium dark:hover:bg-white/20 hover:bg-black/20"
-          >
-            Close Preview
-          </button>
-        </div>
-
-        {/* Mobile Floating Action Button */}
-        <button 
-          onClick={() => setPreviewOpen(true)}
-          className="lg:hidden fixed bottom-6 right-6 z-30 bg-brand-teal text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(34,211,184,0.4)] animate-blur-fade-up"
-        >
-          <Code2 size={24} />
-        </button>
-
+            {/* Mobile Floating Action Button */}
+            <button 
+              onClick={() => setPreviewOpen(true)}
+              className="lg:hidden fixed bottom-6 right-6 z-30 bg-brand-teal text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(34,211,184,0.4)] animate-blur-fade-up"
+            >
+              <Code2 size={24} />
+            </button>
       </main>
     </div>
   );

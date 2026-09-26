@@ -39,7 +39,23 @@ export default function CinematicHero() {
       <main className="sticky top-0 h-screen w-full overflow-hidden">
         
         <div className="absolute inset-0 z-0">
-          <SphereGallery items={galleryItems} title="" />
+          <SphereGallery 
+            items={galleryItems} 
+            title={
+              <div className="relative mx-auto w-[90vw] max-w-4xl pointer-events-none">
+                <h1 
+                  className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-[-0.04em] mb-4 md:mb-6 text-black/90 dark:text-white font-sans"
+                >
+                  Design with Intelligence.
+                </h1>
+                <p 
+                  className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto dark:text-gray-300 text-gray-700 leading-relaxed font-sans"
+                >
+                  Create, compose, and deploy powerful prompt engineering pipelines with the industry&apos;s most advanced visual builder.
+                </p>
+              </div>
+            }
+          />
         </div>
 
       {/* Bottom Blur Overlay */}
@@ -58,28 +74,11 @@ export default function CinematicHero() {
           <Navbar />
         </div>
 
-        {/* Hero Content (Center) */}
-        <div className="flex-1 flex flex-col justify-center items-center px-4 sm:px-6 md:px-12 pb-8 md:pb-16 z-10">
-          <div className="flex flex-col items-center max-w-4xl mx-auto w-full text-center mt-32">
+        <div className="flex-1 flex flex-col justify-end items-center px-4 sm:px-6 md:px-12 pb-16 md:pb-24 z-10">
+          <div className="flex flex-col items-center max-w-4xl mx-auto w-full text-center">
             
-            {/* Title */}
-            <h1 
-              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-[-0.04em] mb-4 md:mb-6 animate-blur-fade-up opacity-0 pointer-events-auto"
-              style={{ animationDelay: "400ms" }}
-            >
-              Design with Intelligence.
-            </h1>
-
-            {/* Description */}
-            <p 
-              className="text-base sm:text-lg md:text-xl max-w-2xl mb-8 md:mb-12 animate-blur-fade-up opacity-0 dark:text-gray-300 text-gray-700 pointer-events-auto"
-              style={{ animationDelay: "500ms" }}
-            >
-              Create, compose, and deploy powerful prompt engineering pipelines with the industry&apos;s most advanced visual builder.
-            </p>
-
             {/* Buttons */}
-            <div className="flex justify-center w-full pointer-events-auto">
+            <div className="flex justify-center w-full pointer-events-auto mt-4 animate-blur-fade-up opacity-0" style={{ animationDelay: "500ms", animationFillMode: "forwards" }}>
               <SwipeToBuild />
             </div>
 
@@ -88,6 +87,30 @@ export default function CinematicHero() {
       </div>
       </main>
       <WhyPromptLab />
+      
+      {/* Footer */}
+      <footer className="w-full py-12 px-4 sm:px-6 md:px-12 border-t border-black/5 dark:border-white/5 bg-white/50 dark:bg-black/50 backdrop-blur-sm relative z-10 flex flex-col items-center justify-center text-center overflow-hidden">
+        
+        {/* Subtle background glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-lg h-[1px] bg-gradient-to-r from-transparent via-black/10 dark:via-white/10 to-transparent" />
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-64 h-24 bg-black/5 dark:bg-white/5 blur-3xl rounded-full pointer-events-none" />
+
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-3 mb-6 group cursor-default">
+          <div className="w-10 h-10 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 flex items-center justify-center shadow-sm">
+            <span className="text-sm font-bold text-black/70 dark:text-white/70">UM</span>
+          </div>
+          <span className="text-lg font-medium text-gray-700 dark:text-gray-300 tracking-wide">
+            Developed By{' '}
+            <span className="font-semibold text-black dark:text-white">
+              Umang Markana
+            </span>
+          </span>
+        </div>
+        
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          &copy; {new Date().getFullYear()} Prompt-Lab. All rights reserved.
+        </p>
+      </footer>
     </div>
   );
 }

@@ -58,13 +58,13 @@ export default function Navbar() {
           {HERO_CONTENT.logo}
         </div>
 
-        {/* Center: Desktop Links */}
-        <div className="hidden lg:flex items-center gap-8">
+        {/* Center: Desktop Links (Perfectly Centered) */}
+        <div className="hidden lg:flex items-center gap-2 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
           {HERO_CONTENT.navLinks.map((link, i) => (
             <Link 
               key={link}
               href={`/${link.toLowerCase().replace(/\s+/g, '-')}`}
-              className="text-sm font-medium transition-colors animate-blur-fade-up opacity-0 dark:hover:text-gray-300 hover:text-gray-600 text-black dark:text-white"
+              className="px-5 py-2 text-sm font-medium rounded-full transition-all duration-300 animate-blur-fade-up opacity-0 bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-black dark:text-white border border-transparent hover:border-black/10 dark:hover:border-white/10 backdrop-blur-md"
               style={{ animationDelay: `${100 + (i * 50)}ms` }}
             >
               {link}
@@ -75,9 +75,8 @@ export default function Navbar() {
         {/* Right: Buttons */}
         <div className="flex items-center gap-3">
 
-
-          {/* User Profile Button */}
-          <div className="relative animate-blur-fade-up opacity-0 hidden sm:block" style={{ animationDelay: "350ms" }}>
+          {/* Action Buttons Container */}
+          <div className="relative animate-blur-fade-up opacity-0 hidden sm:flex items-center gap-2" style={{ animationDelay: "350ms" }}>
             <button 
               onClick={toggleTheme}
               className="flex items-center justify-center w-10 h-10 rounded-full liquid-glass transition-colors dark:hover:bg-white/5 hover:bg-black/5 dark:text-white text-black"
@@ -85,28 +84,30 @@ export default function Navbar() {
               {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
-            <button 
-              onClick={handleAuthClick}
-              className="flex items-center justify-center w-10 h-10 rounded-full liquid-glass overflow-hidden transition-colors dark:hover:bg-white/5 hover:bg-black/5 dark:text-white text-black"
-            >
-              {avatarUrl ? (
-                <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-              ) : (
-                <User size={18} />
+            <div className="relative">
+              <button 
+                onClick={handleAuthClick}
+                className="flex items-center justify-center w-10 h-10 rounded-full liquid-glass overflow-hidden transition-colors dark:hover:bg-white/5 hover:bg-black/5 dark:text-white text-black"
+              >
+                {avatarUrl ? (
+                  <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                ) : (
+                  <User size={18} />
+                )}
+              </button>
+              
+              {/* User Dropdown */}
+              {userDropdownOpen && session && (
+                <div className="absolute right-0 mt-2 w-48 border rounded-xl shadow-xl py-2 overflow-hidden z-50 dark:bg-gray-900 dark:border-gray-800 bg-white border-gray-200">
+                  <Link href="/my-compositions" className="block px-4 py-2 text-sm transition-colors dark:hover:bg-gray-800 dark:text-white hover:bg-gray-100 text-black">
+                    My Compositions
+                  </Link>
+                  <button onClick={handleSignOut} className="w-full text-left px-4 py-2 text-sm text-red-400 transition-colors flex items-center gap-2 dark:hover:bg-gray-800 hover:bg-gray-100">
+                    <LogOut size={16} /> Sign Out
+                  </button>
+                </div>
               )}
-            </button>
-            
-            {/* User Dropdown */}
-            {userDropdownOpen && session && (
-              <div className="absolute right-0 mt-2 w-48 border rounded-xl shadow-xl py-2 overflow-hidden z-50 dark:bg-gray-900 dark:border-gray-800 bg-white border-gray-200">
-                <Link href="/my-compositions" className="block px-4 py-2 text-sm transition-colors dark:hover:bg-gray-800 dark:text-white hover:bg-gray-100 text-black">
-                  My Compositions
-                </Link>
-                <button onClick={handleSignOut} className="w-full text-left px-4 py-2 text-sm text-red-400 transition-colors flex items-center gap-2 dark:hover:bg-gray-800 hover:bg-gray-100">
-                  <LogOut size={16} /> Sign Out
-                </button>
-              </div>
-            )}
+            </div>
           </div>
 
           {/* Hamburger Menu (below lg) */}

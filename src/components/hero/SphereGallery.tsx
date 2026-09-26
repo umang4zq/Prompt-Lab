@@ -3,7 +3,7 @@ import './SphereGallery.css';
 
 interface SphereGalleryProps {
   items: React.ReactNode[];
-  title?: string;
+  title?: React.ReactNode;
 }
 
 export default function SphereGallery({ 
@@ -13,7 +13,7 @@ export default function SphereGallery({
   const stageRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
   const orbRef = useRef<HTMLDivElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
 
   const dragState = useRef({
     dragX: 0, dragY: 0, velX: 0, velY: 0,
@@ -265,9 +265,9 @@ export default function SphereGallery({
             </div>
           ))}
         </div>
-        <h1 className="sphere-headline" ref={headlineRef}>
-          <span className="sphere-inner">{title}</span>
-        </h1>
+        <div className="sphere-headline" ref={headlineRef}>
+          <div className="sphere-inner">{title}</div>
+        </div>
       </div>
     </div>
   );
