@@ -8,7 +8,7 @@ import WhyPromptLab from "../../components/marketing/WhyPromptLab";
 import Navbar from "../../components/hero/Navbar";
 import { useTheme } from "../../lib/theme/ThemeContext";
 import SphereGallery from "../../components/hero/SphereGallery";
-import { Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10, Slide11, Slide12 } from "../ai-skills/page";
+import { Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10, Slide11, Slide12 } from "../ai-skills/AiSkillsContent";
 
 export default function CinematicHero() {
   const { isDarkMode } = useTheme();

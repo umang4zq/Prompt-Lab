@@ -71,7 +71,7 @@ export function useVideoScrub(videoSrc: string, getProgress: () => number) {
           
           let description = new Uint8Array(0);
           if (videoTrack.codec.startsWith('avc1')) {
-             const track = file.getTrackById(videoTrack.id);
+             const track = (file as any).getTrackById(videoTrack.id);
              // @ts-ignore
              if (track && track.mdia && track.mdia.minf && track.mdia.minf.stbl && track.mdia.minf.stbl.stsd && track.mdia.minf.stbl.stsd.entries[0].avcC) {
                // @ts-ignore
@@ -116,7 +116,7 @@ export function useVideoScrub(videoSrc: string, getProgress: () => number) {
           // Basic check for avc1
           if (videoTrack.codec.startsWith('avc1')) {
             // WebCodecs typically needs the description (avcC) for avc1
-            const trak = file.getTrackById(videoTrack.id);
+            const trak = (file as any).getTrackById(videoTrack.id);
             try {
               // @ts-ignore
               config.description = trak.mdia.minf.stbl.stsd.entries[0].avcC.write(); // simplified write if available
