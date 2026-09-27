@@ -146,4 +146,4 @@ pills (table)
 ## 📄 License
 
 Proprietary - All rights reserved. 
-Copyright © 2026 [Your Company/Name].
+Copyright © 2026 
