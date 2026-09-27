@@ -43,6 +43,7 @@ export const viewport: Viewport = {
 
 import { ThemeProvider } from "../lib/theme/ThemeContext";
 import { cn } from "@/lib/utils";
+import { BotAssistant } from "@/components/bot/BotAssistant";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -56,6 +57,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${outfit.variable} ${oswald.variable} font-sans antialiased dark:bg-black bg-white dark:text-white text-black min-h-screen transition-colors duration-200 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]`}>
         <ThemeProvider>
           {children}
+          <BotAssistant />
         </ThemeProvider>
       </body>
     </html>

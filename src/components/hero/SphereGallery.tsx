@@ -95,6 +95,9 @@ export default function SphereGallery({
     return () => resizeObserver.disconnect();
   }, [items]);
 
+  const targetRotation = useRef<{ active: boolean; sy: number; sx: number } | null>(null);
+  const fastSpin = useRef(false);
+
   // 3. Animation loop for dragging and 3D rotation
   useEffect(() => {
     let animationId: number;
@@ -102,24 +105,51 @@ export default function SphereGallery({
       const st = dragState.current;
       const R = R_ref.current;
 
-      // Inertia / momentum
-      st.dragX += st.velX;
-      st.dragY += st.velY;
-      
-      // Auto-rotation when not dragging
-      if (!st.isDragging && Math.abs(st.velX) < 0.05) {
-        st.dragX += 0.05;
-      }
+      // Handle custom automated rotations
+      if (fastSpin.current) {
+        // Tumbling chaotic spin in all directions!
+        const t = Date.now() * 0.003;
+        st.velX = Math.sin(t) * 15.0;
+        st.velY = Math.cos(t * 1.3) * 15.0;
+        st.dragX += st.velX;
+        st.dragY += st.velY;
+      } else if (targetRotation.current?.active) {
+        let currentSy = st.spin + st.dragX;
+        let currentSx = st.tilt + st.dragY;
+        let targetSy = targetRotation.current.sy;
+        let targetSx = targetRotation.current.sx;
+        
+        while (targetSy - currentSy > 180) targetSy -= 360;
+        while (targetSy - currentSy < -180) targetSy += 360;
+        
+        st.velX += (targetSy - currentSy) * 0.03;
+        st.velY += (targetSx - currentSx) * 0.03;
+        
+        st.velX *= 0.82; // dampen heavily
+        st.velY *= 0.82;
+        
+        st.dragX += st.velX;
+        st.dragY += st.velY;
+      } else {
+        // Normal inertia / momentum
+        st.dragX += st.velX;
+        st.dragY += st.velY;
+        
+        // Auto-rotation when not dragging
+        if (!st.isDragging && Math.abs(st.velX) < 0.05) {
+          st.dragX += 0.05;
+        }
 
-      st.velX *= 0.94;
-      st.velY *= 0.94;
-      if (Math.abs(st.velX) < 0.002) st.velX = 0;
-      if (Math.abs(st.velY) < 0.002) st.velY = 0;
+        st.velX *= 0.94;
+        st.velY *= 0.94;
+        if (Math.abs(st.velX) < 0.002) st.velX = 0;
+        if (Math.abs(st.velY) < 0.002) st.velY = 0;
+      }
       
       // Clamp vertical tilt
       let nextTilt = st.tilt + st.dragY;
-      if (nextTilt > 32) { st.dragY = 32 - st.tilt; st.velY = 0; }
-      if (nextTilt < -32) { st.dragY = -32 - st.tilt; st.velY = 0; }
+      if (nextTilt > 32 && !targetRotation.current?.active) { st.dragY = 32 - st.tilt; st.velY = 0; }
+      if (nextTilt < -32 && !targetRotation.current?.active) { st.dragY = -32 - st.tilt; st.velY = 0; }
       
       let sx = st.tilt + st.dragY;
       let sy = st.spin + st.dragX;
@@ -179,6 +209,29 @@ export default function SphereGallery({
     };
     loop();
     return () => cancelAnimationFrame(animationId);
+  }, []);
+
+  // Listen for custom trigger to spin the sphere rapidly
+  useEffect(() => {
+    const handleTrigger = (e: any) => {
+      if (e.detail?.action === 'start') {
+        fastSpin.current = true;
+        targetRotation.current = null;
+      } else if (e.detail?.action === 'stop') {
+        fastSpin.current = false;
+        let idx = e.detail?.targetIndex;
+        if (idx !== undefined && cardsData.current[idx]) {
+          let cd = cardsData.current[idx];
+          // Bring the specific card to the front
+          targetRotation.current = { active: true, sy: -cd.lon, sx: cd.lat };
+        }
+      } else if (e.detail?.action === 'reset') {
+        fastSpin.current = false;
+        targetRotation.current = null;
+      }
+    };
+    window.addEventListener('trigger-sphere-rotation', handleTrigger);
+    return () => window.removeEventListener('trigger-sphere-rotation', handleTrigger);
   }, []);
 
   // 4. Pointer events

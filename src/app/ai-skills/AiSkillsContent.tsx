@@ -718,6 +718,11 @@ export default function AiSkillsPage() {
     <Slide12 key="12" bgColor={bgColor} accentColor="#10B981" />
   ];
 
+  const post7Slides = [
+    <Slide13 key="13" bgColor={bgColor} accentColor="#EAB308" />,
+    <Slide14 key="14" bgColor={bgColor} accentColor="#EAB308" />
+  ];
+
   return (
     <div className="min-h-screen dark:bg-neutral-900 bg-gray-50 dark:text-white text-gray-900 flex flex-col transition-colors duration-200">
       <Navbar />
@@ -753,6 +758,10 @@ export default function AiSkillsPage() {
 
         <ThumbnailWrapper onClick={() => { setActiveSlides(post6Slides); setActiveSlideIndex(0); }}>
           {post6Slides[0]}
+        </ThumbnailWrapper>
+
+        <ThumbnailWrapper onClick={() => { setActiveSlides(post7Slides); setActiveSlideIndex(0); }}>
+          {post7Slides[0]}
         </ThumbnailWrapper>
       </div>
 
@@ -1093,6 +1102,113 @@ export const Slide12 = ({ bgColor, accentColor }: { bgColor: string, accentColor
     <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60">
       Or use the CLI: <code>npx ctx7 setup</code><br/>
       repository URL: <a href="https://github.com/upstash/context7" target="_blank" className="hover:underline font-bold text-black break-all">https://github.com/upstash/context7</a>
+    </div>
+  </SlideContainer>
+);
+
+export const Slide13 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="AI SKILLS / ANTIGRAVITY VAULT"
+    footerLeft={
+      <Link 
+        href="https://github.com/rmyndharis/antigravity-skills"
+        target="_blank"
+        className="flex items-center gap-2 hover:opacity-70 transition-opacity"
+        style={{ color: accentColor }}
+      >
+        <Terminal size={16} />
+        GITHUB.COM/RMYNDHARIS
+      </Link>
+    }
+    footerRight="01 / 02"
+  >
+    <h1 
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      300+ SPECIALIZED<br />
+      AI AGENT SKILLS:<br />
+      <span style={{ color: accentColor }}>THE SKILL VAULT</span>
+    </h1>
+    
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
+      A curated collection of over 300 Agent Skills ported specifically for Google Antigravity. This vault provides your AI with repeatable workflows, domain expertise, and specialized tools across software development, DevOps, security, and cloud architecture.
+    </p>
+
+    <div className="flex flex-col gap-3 w-full mt-auto">
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>Domain Expertise:</strong> Access specialized skills for Python, React, Kubernetes, Terraform, and CI/CD automation directly from your agent.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>Specialist Personas:</strong> Transform your AI into a Backend Architect, Security Auditor, or Data Engineer instantly.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>Multi-Step Workflows:</strong> Give your AI structured pipelines like Full Stack Orchestration or Context-Driven Development.
+        </div>
+      </div>
+    </div>
+  </SlideContainer>
+);
+
+export const Slide14 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="HOW TO INSTALL THE VAULT"
+    footerLeft={
+      <Link 
+        href="https://github.com/rmyndharis/antigravity-skills"
+        target="_blank"
+        className="flex items-center gap-2 hover:opacity-70 transition-opacity"
+        style={{ color: accentColor }}
+      >
+        <Terminal size={16} />
+        GITHUB.COM/RMYNDHARIS
+      </Link>
+    }
+    footerRight="02 / 02"
+  >
+    <h1 
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      HOW TO INSTALL<br />
+      <span style={{ color: accentColor }}>VAULT SKILLS</span>
+    </h1>
+
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
+      Browse the catalog and install skills strategically to keep token usage low and maximize relevance. Antigravity automatically loads metadata from all installed skills.
+    </p>
+
+    <div className="flex flex-col gap-3 w-full mt-auto">
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>Install Specific Skills:</strong> Download the desired skill folders into your <code>skills/</code> directory. (e.g. <code>api-design-principles</code>).
+        </div>
+      </div>
+      
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>Automatic Triggering:</strong> Once installed, simply ask your agent naturally. E.g., "Help me design a REST API" will automatically activate the relevant skill!
+        </div>
+      </div>
+    </div>
+    
+    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60">
+      Check out the full Catalog on GitHub<br/>
+      repository URL: <a href="https://github.com/rmyndharis/antigravity-skills" target="_blank" className="hover:underline font-bold text-black break-all">https://github.com/rmyndharis/antigravity-skills</a>
     </div>
   </SlideContainer>
 );
