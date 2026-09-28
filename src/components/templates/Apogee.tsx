@@ -255,10 +255,10 @@ export default function Apogee({ isPreview = false }: { isPreview?: boolean }) {
     setIsMounted(true);
   }, []);
   
-  if (!isMounted) return <div className="w-full h-[100vh] bg-[#080A19]" />;
+  if (!isMounted) return <div className={`w-full bg-[#080A19] ${isPreview ? 'h-[1080px]' : 'h-[100vh]'}`} />;
 
   return (
-    <div className={`apogee-wrapper relative w-full h-screen overflow-hidden bg-[#080A19] ${isPreview ? 'pointer-events-none' : ''}`}>
+    <div className={`apogee-wrapper relative w-full overflow-hidden bg-[#080A19] ${isPreview ? 'pointer-events-none h-[1080px]' : 'h-screen'}`}>
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <video
         className="absolute inset-0 w-full h-full object-cover"

@@ -7,7 +7,6 @@ import PrmptArchive from "@/components/templates/PrmptArchive";
 import Marketeam from "@/components/templates/Marketeam";
 import ViktorStudio from "@/components/templates/ViktorStudio";
 import OrbitSecureSystem from "@/components/templates/OrbitSecureSystem";
-import Placeholder from "@/components/templates/Placeholder";
 import CopyButton from "@/components/CopyButton";
 import Vantage from "@/components/templates/Vantage";
 import SecurityLayer from "@/components/templates/SecurityLayer";
@@ -52,12 +51,6 @@ const TEMPLATES = [
     category: "Secure System",
     Component: OrbitSecureSystem,
     prompt: promptOrbitSecureSystem,
-  },
-  {
-    id: "placeholder",
-    title: "Upcoming Template",
-    category: "TBD",
-    Component: Placeholder,
   },
   {
     id: "apogee",
@@ -135,7 +128,7 @@ export default function TemplatesGallery() {
               <div key={tpl.id} className="flex flex-col gap-3 group cursor-pointer" onClick={() => setOpenTemplateId(tpl.id)}>
                 {/* Card Container */}
                 <div 
-                  className="dark:bg-[#141414] bg-white dark:border-[#232323] border-gray-200 rounded-[16px] overflow-hidden transition-all duration-300 dark:group-hover:border-[#3a3a3a] group-hover:border-gray-300 shadow-sm group-hover:-translate-y-[2px] relative aspect-[16/10.2]"
+                  className="dark:bg-[#141414] bg-white dark:border-[#232323] border-gray-200 rounded-[16px] overflow-hidden transition-all duration-300 dark:group-hover:border-[#3a3a3a] group-hover:border-gray-300 shadow-sm group-hover:-translate-y-[2px] relative aspect-video"
                   style={{ containerType: 'inline-size' }}
                 >
                   
@@ -143,7 +136,7 @@ export default function TemplatesGallery() {
                   {tpl.prompt && <CopyButton textToCopy={tpl.prompt} />}
 
                   {/* Thumbnail render */}
-                  <div className="absolute inset-0 pointer-events-none select-none origin-top-left" aria-hidden="true" style={{ width: '1920px', height: '1224px', transform: 'scale(calc(100cqw / 1920px))' }}>
+                  <div className="absolute inset-0 pointer-events-none select-none origin-top-left flex justify-center bg-[#0a0a0a]" aria-hidden="true" style={{ width: '1920px', height: '1080px', transform: 'scale(calc(100cqw / 1920px))' }}>
                     <tpl.Component isPreview={true} />
                   </div>
                 </div>

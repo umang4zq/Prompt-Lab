@@ -534,10 +534,10 @@ export default function Vantage({ isPreview = false }: { isPreview?: boolean }) 
     setIsMounted(true);
   }, []);
   
-  if (!isMounted) return <div className="w-full h-[100vh] bg-[#000]" />;
+  if (!isMounted) return <div className={`w-full bg-[#000] ${isPreview ? 'h-[1080px]' : 'h-[100vh]'}`} />;
 
   return (
-    <div className={`w-full h-[100vh] min-h-[600px] bg-[#000] ${isPreview ? 'pointer-events-none' : ''}`}>
+    <div className={`w-full min-h-[600px] bg-[#000] ${isPreview ? 'pointer-events-none h-[1080px]' : 'h-[100vh]'}`}>
       <iframe
         srcDoc={htmlContent}
         title="Vantage"

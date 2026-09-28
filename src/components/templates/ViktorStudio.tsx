@@ -144,7 +144,7 @@ export default function ViktorStudio({ isPreview = false }: { isPreview?: boolea
   const periodColor = activeIndex === 0 ? "#F598F2" : "white";
 
   return (
-    <div className={`relative w-full h-[100vh] min-h-[600px] bg-black text-white overflow-hidden ${figtree.className}`}>
+    <div className={`relative w-full min-h-[600px] bg-black text-white overflow-hidden ${figtree.className} ${isPreview ? 'h-[1080px]' : 'h-[100vh]'}`}>
       <style dangerouslySetInnerHTML={{ __html: css }} />
       
       {/* Video Backgrounds */}

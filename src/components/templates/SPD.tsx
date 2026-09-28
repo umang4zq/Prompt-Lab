@@ -6,7 +6,7 @@ export default function SPD({ isPreview = false }: { isPreview?: boolean }) {
   // without needing global layout changes
   
   return (
-    <div className={`w-full min-h-[600px] h-screen max-h-[1080px] bg-[#FF0000] overflow-hidden ${isPreview ? 'pointer-events-none' : ''}`}>
+    <div className={`w-full min-h-[600px] bg-[#FF0000] overflow-hidden ${isPreview ? 'pointer-events-none h-[1080px]' : 'h-screen max-h-[1080px]'}`}>
       <style dangerouslySetInnerHTML={{__html: `
         @import url('https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@300;400;600&family=Marck+Script&display=swap');
         

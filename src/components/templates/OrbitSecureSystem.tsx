@@ -445,10 +445,10 @@ export default function OrbitSecureSystem({ isPreview = false }: { isPreview?: b
     setIsMounted(true);
   }, []);
   
-  if (!isMounted) return <div className="w-full h-[100vh] bg-[#161616]" />;
+  if (!isMounted) return <div className={`w-full bg-[#161616] ${isPreview ? 'h-[1080px]' : 'h-[100vh]'}`} />;
 
   return (
-    <div className={`w-full h-[100vh] min-h-[600px] bg-[#161616] ${isPreview ? 'pointer-events-none' : ''}`}>
+    <div className={`w-full min-h-[600px] bg-[#161616] ${isPreview ? 'pointer-events-none h-[1080px]' : 'h-[100vh]'}`}>
       <iframe
         srcDoc={htmlContent}
         title="Orbit Secure System"

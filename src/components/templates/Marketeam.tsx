@@ -197,7 +197,7 @@ export default function Marketeam({ _isPreview = false }: { _isPreview?: boolean
   ];
 
   return (
-    <div className={`relative min-h-screen bg-[#0a0a0a] overflow-hidden ${inter.className}`}>
+    <div className={`relative bg-[#0a0a0a] overflow-hidden ${inter.className} ${_isPreview ? 'h-[1080px]' : 'min-h-screen'}`}>
       <style dangerouslySetInnerHTML={{ __html: borderCss }} />
       
       {/* Background */}
