@@ -5,6 +5,7 @@ import { BloubBot } from "./BloubBot";
 import { StateId } from "@/lib/bot/states";
 import { AnimatePresence, motion } from "framer-motion";
 import { Send } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const SKILLS_DATA = [
   {
@@ -66,6 +67,7 @@ const SKILLS_DATA = [
 ];
 
 export function BotAssistant() {
+  const pathname = usePathname();
   const [message, setMessage] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [botState, setBotState] = useState<StateId>("idle");
@@ -135,6 +137,8 @@ export function BotAssistant() {
     if (!inputValue.trim()) return;
     triggerSearch(inputValue);
   };
+
+  if (pathname !== "/") return null;
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4 pointer-events-none">
