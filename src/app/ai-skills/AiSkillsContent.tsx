@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowRight, Terminal, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Terminal, X, ChevronLeft, ChevronRight, Copy, Check } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -15,6 +15,28 @@ interface SlideProps {
   headerRight?: React.ReactNode;
   footerLeft?: React.ReactNode;
   footerRight?: React.ReactNode;
+}
+
+function CopyRepoButton({ url }: { url: string }) {
+  const [copied, setCopied] = useState(false);
+  
+  const handleCopy = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      className="shrink-0 px-2 py-1 md:px-3 md:py-1.5 bg-black/5 hover:bg-black/10 text-black rounded-md transition-colors flex items-center gap-2 font-sans font-medium text-[10px] md:text-xs shadow-sm"
+      title="Copy Repo URL"
+    >
+      {copied ? <Check size={14} /> : <Copy size={14} />}
+      <span className="hidden sm:inline">{copied ? "Copied!" : "Copy URL"}</span>
+    </button>
+  );
 }
 
 // Fully responsive SlideContainer. Expands to fill its parent.
@@ -304,16 +326,19 @@ export const Slide2 = ({ bgColor, accentColor }: { bgColor: string, accentColor:
       </div>
     </div>
     
-    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60">
-      repository URL:
-      <br />
-      <a 
-        href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill"
-        target="_blank"
-        className="hover:underline font-bold text-black break-all"
-      >
-        https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
-      </a>
+    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60 flex items-end justify-between gap-4">
+      <div>
+        repository URL:
+        <br />
+        <a 
+          href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill"
+          target="_blank"
+          className="hover:underline font-bold text-black break-all"
+        >
+          https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+        </a>
+      </div>
+      <CopyRepoButton url="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill" />
     </div>
   </SlideContainer>
 );
@@ -425,16 +450,19 @@ export const Slide4 = ({ bgColor, accentColor }: { bgColor: string, accentColor:
       </div>
     </div>
     
-    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60">
-      repository URL:
-      <br />
-      <a 
-        href="https://github.com/emilkowalski/skills/blob/main/skills/apple-design/SKILL.md"
-        target="_blank"
-        className="hover:underline font-bold text-black break-all"
-      >
-        https://github.com/emilkowalski/skills/blob/main/skills/apple-design/SKILL.md
-      </a>
+    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60 flex items-end justify-between gap-4">
+      <div>
+        repository URL:
+        <br />
+        <a 
+          href="https://github.com/emilkowalski/skills/blob/main/skills/apple-design/SKILL.md"
+          target="_blank"
+          className="hover:underline font-bold text-black break-all"
+        >
+          https://github.com/emilkowalski/skills/blob/main/skills/apple-design/SKILL.md
+        </a>
+      </div>
+      <CopyRepoButton url="https://github.com/emilkowalski/skills/blob/main/skills/apple-design/SKILL.md" />
     </div>
   </SlideContainer>
 );
@@ -546,16 +574,19 @@ export const Slide6 = ({ bgColor, accentColor }: { bgColor: string, accentColor:
       </div>
     </div>
     
-    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60">
-      repository URL:
-      <br />
-      <a 
-        href="https://github.com/VoltAgent/awesome-design-md"
-        target="_blank"
-        className="hover:underline font-bold text-black break-all"
-      >
-        https://github.com/VoltAgent/awesome-design-md
-      </a>
+    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60 flex items-end justify-between gap-4">
+      <div>
+        repository URL:
+        <br />
+        <a 
+          href="https://github.com/VoltAgent/awesome-design-md"
+          target="_blank"
+          className="hover:underline font-bold text-black break-all"
+        >
+          https://github.com/VoltAgent/awesome-design-md
+        </a>
+      </div>
+      <CopyRepoButton url="https://github.com/VoltAgent/awesome-design-md" />
     </div>
   </SlideContainer>
 );
@@ -666,16 +697,19 @@ export const Slide8 = ({ bgColor, accentColor }: { bgColor: string, accentColor:
       </div>
     </div>
     
-    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60">
-      repository URL:
-      <br />
-      <a 
-        href="https://github.com/obra/superpowers"
-        target="_blank"
-        className="hover:underline font-bold text-black break-all"
-      >
-        https://github.com/obra/superpowers
-      </a>
+    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60 flex items-end justify-between gap-4">
+      <div>
+        repository URL:
+        <br />
+        <a 
+          href="https://github.com/obra/superpowers"
+          target="_blank"
+          className="hover:underline font-bold text-black break-all"
+        >
+          https://github.com/obra/superpowers
+        </a>
+      </div>
+      <CopyRepoButton url="https://github.com/obra/superpowers" />
     </div>
   </SlideContainer>
 );
@@ -1099,9 +1133,12 @@ export const Slide12 = ({ bgColor, accentColor }: { bgColor: string, accentColor
       </div>
     </div>
     
-    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60">
-      Or use the CLI: <code>npx ctx7 setup</code><br/>
-      repository URL: <a href="https://github.com/upstash/context7" target="_blank" className="hover:underline font-bold text-black break-all">https://github.com/upstash/context7</a>
+    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60 flex items-end justify-between gap-4">
+      <div>
+        Or use the CLI: <code>npx ctx7 setup</code><br/>
+        repository URL: <a href="https://github.com/upstash/context7" target="_blank" className="hover:underline font-bold text-black break-all">https://github.com/upstash/context7</a>
+      </div>
+      <CopyRepoButton url="https://github.com/upstash/context7" />
     </div>
   </SlideContainer>
 );
@@ -1206,9 +1243,12 @@ export const Slide14 = ({ bgColor, accentColor }: { bgColor: string, accentColor
       </div>
     </div>
     
-    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60">
-      Check out the full Catalog on GitHub<br/>
-      repository URL: <a href="https://github.com/rmyndharis/antigravity-skills" target="_blank" className="hover:underline font-bold text-black break-all">https://github.com/rmyndharis/antigravity-skills</a>
+    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60 flex items-end justify-between gap-4">
+      <div>
+        Check out the full Catalog on GitHub<br/>
+        repository URL: <a href="https://github.com/rmyndharis/antigravity-skills" target="_blank" className="hover:underline font-bold text-black break-all">https://github.com/rmyndharis/antigravity-skills</a>
+      </div>
+      <CopyRepoButton url="https://github.com/rmyndharis/antigravity-skills" />
     </div>
   </SlideContainer>
 );
