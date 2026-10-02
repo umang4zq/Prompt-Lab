@@ -1,6 +1,6 @@
 "use client";
 
-import        \ \ \ \ \ \ \'''''''React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const htmlContent = `<!doctype html>
 <html lang="en" class="anim">
