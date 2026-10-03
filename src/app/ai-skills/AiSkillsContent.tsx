@@ -757,6 +757,11 @@ export default function AiSkillsPage() {
     <Slide14 key="14" bgColor={bgColor} accentColor="#EAB308" />
   ];
 
+  const post8Slides = [
+    <Slide15 key="15" bgColor={bgColor} accentColor="#ec4899" />,
+    <Slide16 key="16" bgColor={bgColor} accentColor="#ec4899" />
+  ];
+
   return (
     <div className="min-h-screen dark:bg-neutral-900 bg-gray-50 dark:text-white text-gray-900 flex flex-col transition-colors duration-200">
       <Navbar />
@@ -796,6 +801,10 @@ export default function AiSkillsPage() {
 
         <ThumbnailWrapper onClick={() => { setActiveSlides(post7Slides); setActiveSlideIndex(0); }}>
           {post7Slides[0]}
+        </ThumbnailWrapper>
+
+        <ThumbnailWrapper onClick={() => { setActiveSlides(post8Slides); setActiveSlideIndex(0); }}>
+          {post8Slides[0]}
         </ThumbnailWrapper>
       </div>
 
@@ -1249,6 +1258,110 @@ export const Slide14 = ({ bgColor, accentColor }: { bgColor: string, accentColor
         repository URL: <a href="https://github.com/rmyndharis/antigravity-skills" target="_blank" className="hover:underline font-bold text-black break-all">https://github.com/rmyndharis/antigravity-skills</a>
       </div>
       <CopyRepoButton url="https://github.com/rmyndharis/antigravity-skills" />
+    </div>
+  </SlideContainer>
+);
+
+export const rawPromptLabConfig = `{
+  "mcpServers": {
+    "prompt-lab": {
+      "command": "npm",
+      "args": ["run", "mcp"],
+      "cwd": "your/path/to/Prompt-Lab"
+    }
+  }
+}`;
+
+export const Slide15 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="PROMPT LAB / MCP SERVER"
+    footerLeft={
+      <span className="flex items-center gap-2">
+        AI-OPTIMIZED <span style={{ color: accentColor }}>→</span> MCP SERVER
+      </span>
+    }
+    footerRight="01 / 02"
+  >
+    <h1 
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      SUPERCHARGE YOUR AI<br />
+      <span style={{ color: accentColor }}>WITH PROMPT LAB MCP.</span>
+    </h1>
+    
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
+      Connect your local AI agent directly to the Prompt Lab! The Prompt Lab MCP server provides your AI tools to check available skills and install them with one click.
+    </p>
+
+    <div className="flex flex-col gap-3 w-full mt-auto">
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>Skill Checking:</strong> Lets your AI query all available UI/UX, Design, and DevOps skills seamlessly.
+        </div>
+      </div>
+      <div className="flex items-start gap-4 border-b border-black/10 pb-3">
+        <ArrowRight style={{ color: accentColor }} className="mt-0.5 shrink-0" size={16} />
+        <div className="border-l border-black/20 pl-4 text-[11px] sm:text-xs md:text-sm font-medium">
+          <strong>One-click Install:</strong> Agent can instantly install requested skills into your local directory.
+        </div>
+      </div>
+    </div>
+  </SlideContainer>
+);
+
+export const Slide16 = ({ bgColor, accentColor }: { bgColor: string, accentColor: string }) => (
+  <SlideContainer
+    bgColor={bgColor}
+    accentColor={accentColor}
+    headerLeft="HOW TO USE / PROMPT LAB MCP"
+    footerLeft={
+      <span className="flex items-center gap-2">
+        AI-OPTIMIZED <span style={{ color: accentColor }}>→</span> MCP SERVER
+      </span>
+    }
+    footerRight="02 / 02"
+  >
+    <h1 
+      className="text-3xl sm:text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter mb-4 break-words"
+      style={{ fontFamily: "'Oswald', sans-serif" }}
+    >
+      HOW TO INSTALL<br />
+      <span style={{ color: accentColor }}>PROMPT LAB MCP</span>
+    </h1>
+
+    <p className="text-[13px] sm:text-sm md:text-base mb-6 font-medium leading-relaxed">
+      Simply add this configuration to your agent's MCP settings (e.g. <code>cline_mcp_settings.json</code>) to get started!
+    </p>
+
+    <div className="relative flex flex-col flex-grow h-full bg-black/5 dark:bg-black/20 rounded-xl overflow-hidden border border-black/10 dark:border-white/10 p-4">
+      <button 
+        onClick={(e) => {
+          e.stopPropagation();
+          navigator.clipboard.writeText(rawPromptLabConfig);
+          alert("MCP Config copied to clipboard!");
+        }}
+        className="absolute top-4 right-4 z-10 flex items-center gap-1.5 bg-black text-white dark:bg-white dark:text-black rounded-lg px-4 py-2 text-sm font-semibold shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
+      >
+        <Terminal size={14} /> COPY CONFIG
+      </button>
+
+      <h3 className="text-sm font-bold mb-4 uppercase tracking-widest opacity-50">mcp_settings.json</h3>
+      
+      <div className="flex-grow overflow-y-auto hidden-scrollbar pr-2 relative">
+        <pre className="text-[10px] sm:text-xs font-mono leading-relaxed whitespace-pre-wrap break-words opacity-80" style={{ fontFamily: "monospace" }}>
+          {rawPromptLabConfig}
+        </pre>
+      </div>
+    </div>
+    
+    <div className="mt-auto pt-6 font-mono text-[10px] md:text-xs tracking-tight text-black/60 flex items-end justify-between gap-4">
+      <div>
+        Local run: <code>npm run mcp</code><br/>
+      </div>
     </div>
   </SlideContainer>
 );
