@@ -1,0 +1,25 @@
+{
+  "name": "prompt-lab-mcp",
+  "version": "1.0.0",
+  "description": "An MCP server for Prompt Lab skills",
+  "type": "module",
+  "bin": {
+    "prompt-lab-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "Prompt Lab",
+  "license": "MIT"
+}

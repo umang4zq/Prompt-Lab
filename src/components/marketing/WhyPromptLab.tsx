@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Copy, Check } from 'lucide-react';
+import TerminalCommand from './TerminalCommand';
 
 const GROUPS = [
   {
@@ -228,6 +229,11 @@ export default function WhyPromptLab() {
             </div>
           </div>
         </motion.div>
+
+        {/* Terminal block inserted here above the columns as requested */}
+        <div className="mt-14 pt-8 w-full flex justify-center">
+          <TerminalCommand />
+        </div>
 
         {/* Who it helps — hairline row, not cards */}
         <div className="mt-14 grid md:grid-cols-3 border-t dark:border-white/[0.08] border-gray-200">
