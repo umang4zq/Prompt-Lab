@@ -8,7 +8,7 @@ import WhyPromptLab from "../../components/marketing/WhyPromptLab";
 import Navbar from "../../components/hero/Navbar";
 import { useTheme } from "../../lib/theme/ThemeContext";
 import SphereGallery from "../../components/hero/SphereGallery";
-import { Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10, Slide11, Slide12, Slide13, Slide14, Slide15, Slide16 } from "../ai-skills/AiSkillsContent";
+import { Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10, Slide11, Slide12, Slide13, Slide14, Slide15, Slide16, Slide17, Slide18 } from "../ai-skills/AiSkillsContent";
 
 export default function CinematicHero() {
   const { isDarkMode } = useTheme();
@@ -35,7 +35,9 @@ export default function CinematicHero() {
     <Slide13 key="13" bgColor="#F7F5EC" accentColor="#EAB308" />,
     <Slide14 key="14" bgColor="#F7F5EC" accentColor="#EAB308" />,
     <Slide15 key="15" bgColor="#F7F5EC" accentColor="#ec4899" />,
-    <Slide16 key="16" bgColor="#F7F5EC" accentColor="#ec4899" />
+    <Slide16 key="16" bgColor="#F7F5EC" accentColor="#ec4899" />,
+    <Slide17 key="17" bgColor="#F7F5EC" accentColor="#06B6D4" />,
+    <Slide18 key="18" bgColor="#F7F5EC" accentColor="#06B6D4" />
   ];
 
   return (

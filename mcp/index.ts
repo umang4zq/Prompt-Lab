@@ -42,6 +42,12 @@ const AVAILABLE_SKILLS = [
     name: "Ultimate AI README Template",
     description: "Give your AI perfect context about your codebase.",
     keywords: ["readme", "template", "context", "architecture", "database"]
+  },
+  {
+    id: "login-register",
+    name: "Login & Register",
+    description: "Builds production-ready Login and Register (sign up) screens for Flutter mobile apps and Next.js web apps.",
+    keywords: ["login", "register", "sign in", "sign up", "auth", "flutter", "nextjs", "screens", "authentication"]
   }
 ];
 

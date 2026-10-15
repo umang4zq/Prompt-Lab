@@ -29,7 +29,7 @@ Prompt Lab is a web application designed to help developers and AI enthusiasts c
 ### 🎯 Community Gallery & Templates
 - Browse public compositions created by the community.
 - Curated templates for specific use cases (Landing Pages, Portfolios, Admin Dashboards, etc.).
-- Dedicated section showcasing advanced AI skills (e.g., Apple Design Skill, Awesome Design MD, UI/UX Pro Max).
+- Dedicated section showcasing advanced AI skills (e.g., Apple Design Skill, Awesome Design MD, UI/UX Pro Max, Login & Register).
 
 ---
 

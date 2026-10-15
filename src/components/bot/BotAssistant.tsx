@@ -63,6 +63,22 @@ const SKILLS_DATA = [
     shape: "losange",
     color: "jaune",
     message: "The Antigravity Vault has over 300+ skills across dev, infra, and security domains!"
+  },
+  {
+    id: "prompt-lab-mcp",
+    targetIndex: 14,
+    keywords: ["mcp", "prompt lab mcp", "server", "tools", "connect"],
+    shape: "triangle",
+    color: "rose",
+    message: "Check out the 'Prompt Lab MCP' server to connect your AI agent directly to Prompt Lab!"
+  },
+  {
+    id: "login-register",
+    targetIndex: 16,
+    keywords: ["login", "register", "signup", "sign in", "sign up", "auth", "authentication", "screens", "flutter", "nextjs", "password"],
+    shape: "squircle",
+    color: "turquoise",
+    message: "I recommend the 'Login & Register' skill for building production-ready auth screens in Flutter & Next.js!"
   }
 ];
 
