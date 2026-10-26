@@ -48,6 +48,12 @@ const AVAILABLE_SKILLS = [
     name: "Login & Register",
     description: "Builds production-ready Login and Register (sign up) screens for Flutter mobile apps and Next.js web apps.",
     keywords: ["login", "register", "sign in", "sign up", "auth", "flutter", "nextjs", "screens", "authentication"]
+  },
+  {
+    id: "flutter-notifications",
+    name: "Flutter Notifications",
+    description: "Comprehensive guide and implementation runbook for Flutter notifications. Covers flutter_local_notifications 22+, Android 13+ permissions, Java 8/17 desugaring, Firebase Cloud Messaging (FCM) v1, cross-platform iOS APNs mapping, role-based notification dispatch, and system tray vs in-app UI patterns.",
+    keywords: ["flutter", "notifications", "fcm", "push", "apns", "local notifications", "firebase", "android", "ios"]
   }
 ];
 

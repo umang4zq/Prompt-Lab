@@ -79,6 +79,14 @@ const SKILLS_DATA = [
     shape: "squircle",
     color: "turquoise",
     message: "I recommend the 'Login & Register' skill for building production-ready auth screens in Flutter & Next.js!"
+  },
+  {
+    id: "flutter-notifications",
+    targetIndex: 18,
+    keywords: ["notification", "notifications", "fcm", "push", "apns", "flutter local notifications", "flutter_local_notifications", "desugaring", "tray", "badge", "vibrate", "alert"],
+    shape: "losange",
+    color: "bleu",
+    message: "I recommend the 'Flutter Notifications' skill for production FCM v1 push, local notifications 22+, and role isolation in Flutter!"
   }
 ];
 
